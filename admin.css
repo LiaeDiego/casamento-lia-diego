@@ -201,6 +201,61 @@ code { font-family: "JetBrains Mono", Consolas, monospace; }
   height: 46px;
   padding: 4px;
 }
+.appearance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.appearance-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.58);
+}
+.appearance-card legend {
+  padding: 0 6px;
+  color: var(--burgundy);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+}
+.appearance-card input[type="color"] {
+  height: 42px;
+  padding: 4px;
+}
+.list-editor-section {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+.list-editor-section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.list-editor {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 14px;
+  background: rgba(255,255,255,0.66);
+  border: 1px solid var(--line);
+}
+.list-editor h3 {
+  margin: 0;
+  color: var(--burgundy);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+.list-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.list-editor .full { grid-column: 1 / -1; }
 .actions-row {
   display: flex;
   gap: 10px;
@@ -343,6 +398,8 @@ dialog::backdrop {
   }
   .grid.two,
   .grid.four,
+  .appearance-card,
+  .list-editor-grid,
   .gift-editor-grid,
   .gift-editor-links { grid-template-columns: 1fr; }
 }

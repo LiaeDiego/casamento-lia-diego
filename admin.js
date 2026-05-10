@@ -182,6 +182,7 @@ function renderGiftsEditor() {
         <label><span>Qtd. comprada</span><input type="number" min="0" step="1" data-gift-field="qtdComprada" value="${Number(gift.qtdComprada || 0)}"></label>
       </div>
       <div class="gift-editor-links">
+        <label class="gift-editor-wide"><span>Foto do presente URL</span><input data-gift-field="image" placeholder="https://... ou assets/presente.jpg" value="${escapeAttr(gift.image || "")}"></label>
         <label><span>Link PIX</span><input data-gift-field="linkPix" value="${escapeAttr(gift.linkPix || "")}"></label>
         <label><span>Link cartão</span><input data-gift-field="linkCartao" value="${escapeAttr(gift.linkCartao || "")}"></label>
       </div>
@@ -215,6 +216,7 @@ function addGift() {
     valor: 0,
     qtdTotal: 1,
     qtdComprada: 0,
+    image: "",
     linkPix: "",
     linkCartao: "",
     compradores: []

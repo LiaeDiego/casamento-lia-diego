@@ -255,8 +255,11 @@ function renderGifts() {
   container.innerHTML = gifts.map((gift) => {
     const available = Math.max(0, Number(gift.qtdTotal || 0) - Number(gift.qtdComprada || 0));
     const unavailable = available <= 0;
+    const image = String(gift.image || "").trim();
+    const imageAlt = gift.nome ? `Foto do presente ${gift.nome}` : "Foto do presente";
     return `
       <article class="gift-card ${unavailable ? "unavailable" : ""}">
+        ${image ? `<figure class="gift-photo"><img src="${escapeAttr(image)}" alt="${escapeAttr(imageAlt)}" loading="lazy"></figure>` : ""}
         <h3>${escapeHtml(gift.nome)}</h3>
         <p class="gift-value">${formatCurrency(gift.valor)}</p>
         <p>${unavailable ? "Já presenteado" : `${available} de ${gift.qtdTotal || 1} disponível${available > 1 ? "is" : ""}`}</p>
@@ -268,6 +271,12 @@ function renderGifts() {
   }).join("");
   container.querySelectorAll("[data-buy-gift]").forEach((button) => {
     button.addEventListener("click", () => openGiftFlow(button.dataset.buyGift));
+  });
+  container.querySelectorAll(".gift-photo img").forEach((img) => {
+    img.addEventListener("error", () => {
+      const photo = img.closest(".gift-photo");
+      if (photo) photo.hidden = true;
+    });
   });
 }
 

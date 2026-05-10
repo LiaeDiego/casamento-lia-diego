@@ -305,6 +305,18 @@ label span,
   padding: 24px;
 }
 .gift-card.unavailable { opacity: 0.52; }
+.gift-photo {
+  margin: -24px -24px 18px;
+  overflow: hidden;
+  background: var(--cream-deep);
+  border-bottom: 1px solid rgba(92, 63, 25, 0.14);
+}
+.gift-photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.gift-card.unavailable .gift-photo img { filter: grayscale(0.25); }
 .gift-card h3,
 .faq-item h3,
 .lodging-card h3 {

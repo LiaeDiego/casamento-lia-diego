@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lia e Diego</title>
+  <meta name="description" content="Site do casamento de Lia e Diego">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="site-config.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <nav class="menu" aria-label="Navegação principal">
+    <a class="menu-logo" href="#inicio" data-text="site.nomes">Lia e Diego</a>
+    <button class="menu-toggle" type="button" aria-label="Abrir menu" data-menu-toggle>☰</button>
+    <div class="menu-links" data-menu-links>
+      <a href="#historia">História</a>
+      <a href="#presentes">Presentes</a>
+      <a href="#rsvp">RSVP</a>
+      <a href="#faq">FAQ</a>
+      <a href="#recados">Recados</a>
+    </div>
+  </nav>
+
+  <main>
+    <section id="inicio" class="hero site-section" data-section="hero">
+      <div class="hero-photo" data-bg="site.heroImage"></div>
+      <div class="hero-card">
+        <p class="script-title" data-text="site.nomes">Lia e Diego</p>
+        <div class="chairs" aria-hidden="true">
+          <span></span><span></span>
+        </div>
+      </div>
+      <div class="hero-tag-card" data-text="site.tagline">onde o amor se senta à mesa</div>
+      <a class="scroll-cue" href="#contagem" aria-label="Ir para a próxima seção"></a>
+    </section>
+
+    <section id="contagem" class="countdown site-section" data-section="countdown">
+      <p class="eyebrow">contagem regressiva</p>
+      <h1>até o nosso "sim"</h1>
+      <div class="countdown-grid" data-countdown></div>
+      <p class="date-line"><span data-text="site.dateLong">01 de novembro de 2026</span> · <span data-text="site.location">Itapetininga</span></p>
+    </section>
+
+    <section id="historia" class="story site-section" data-section="story">
+      <figure class="story-photo frame">
+        <img src="assets/casal.jpg" alt="Foto do casal" data-img="site.storyImage">
+      </figure>
+      <div class="story-copy">
+        <p class="eyebrow">nossa história</p>
+        <h2 class="script-heading">Lia e Diego</h2>
+        <div data-html="site.storyHtml">
+          <p>Os noivos editarão este texto depois da publicação.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="save-the-date" class="save-date site-section" data-section="saveDate">
+      <div class="save-photo" data-bg="site.heroImage"></div>
+      <div class="save-ribbon" data-text="site.dateShort">01 · 11 · 2026</div>
+    </section>
+
+    <section id="presentes" class="gifts site-section" data-section="gifts">
+      <div class="section-intro">
+        <p class="script-heading">Lista de Presentes</p>
+        <p data-text="site.giftsIntro">Cada presente é um gesto que nos acompanhará para sempre.</p>
+      </div>
+      <div class="pix-box">
+        <span>chave pix</span>
+        <strong data-text="site.pixKey">casamento.lia.diego@email.com</strong>
+        <button class="btn terracotta" type="button" data-copy-pix>Copiar chave PIX</button>
+      </div>
+      <div class="gifts-grid" data-gifts></div>
+    </section>
+
+    <section id="galeria" class="gallery site-section" data-section="gallery">
+      <p class="eyebrow">nossas memórias</p>
+      <h2 class="script-heading">Galeria</h2>
+      <div class="stamp-grid" data-gallery></div>
+    </section>
+
+    <section id="rsvp" class="rsvp site-section" data-section="rsvp">
+      <div class="rsvp-card">
+        <p class="eyebrow">confirmação de presença</p>
+        <h2>Você estará conosco?</h2>
+        <form id="rsvpForm" class="form">
+          <label>
+            <span>presença</span>
+            <select id="rsvpAttending" required>
+              <option value="sim">Sim, confirmo presença</option>
+              <option value="nao">Não poderei ir</option>
+            </select>
+          </label>
+          <label>
+            <span>nome completo</span>
+            <input id="rsvpName" type="text" autocomplete="name" required placeholder="Seu nome completo">
+          </label>
+          <div>
+            <span class="field-label">acompanhantes</span>
+            <div class="guest-list" data-guest-list></div>
+            <button class="btn ghost small" type="button" data-add-guest>+ Adicionar acompanhante</button>
+          </div>
+          <label>
+            <span>observações</span>
+            <textarea id="rsvpNotes" placeholder="Restrições alimentares, recado ou observação"></textarea>
+          </label>
+          <button class="btn terracotta block" type="submit">Enviar confirmação</button>
+        </form>
+        <div class="form-success" data-rsvp-success hidden>
+          <p class="script-heading">obrigada!</p>
+          <p data-rsvp-success-text>Recebemos sua resposta.</p>
+          <button class="btn ghost" type="button" data-new-rsvp>Enviar outra resposta</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq site-section" data-section="faq">
+      <h2 class="script-heading">Perguntas Frequentes</h2>
+      <div class="faq-grid" data-faq></div>
+    </section>
+
+    <section id="acomodacoes" class="lodging site-section" data-section="lodging">
+      <h2 class="script-heading">Acomodações</h2>
+      <div class="lodging-grid" data-lodging></div>
+    </section>
+
+    <section id="recados" class="messages site-section" data-section="messages">
+      <div class="section-intro">
+        <p class="script-heading">Recados aos noivos</p>
+      </div>
+      <form id="messageForm" class="message-form">
+        <input id="messageName" type="text" required placeholder="seu nome">
+        <input id="messageText" type="text" required placeholder="sua mensagem com carinho">
+        <button class="btn burgundy" type="submit">Enviar</button>
+      </form>
+      <div class="message-grid" data-messages></div>
+    </section>
+  </main>
+
+  <footer class="footer site-section" data-section="footer">
+    <div class="chairs" aria-hidden="true"><span></span><span></span></div>
+    <p class="script-title" data-text="site.nomes">Lia e Diego</p>
+    <p><span data-text="site.dateLong">01 de novembro de 2026</span> · <span data-text="site.location">Itapetininga</span></p>
+    <p data-text="site.tagline">onde o amor se senta à mesa</p>
+    <a href="admin.html" class="admin-link">Modo noivos</a>
+  </footer>
+
+  <div class="modal-backdrop" data-gift-modal hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="giftModalTitle">
+      <button class="modal-close" type="button" data-close-gift aria-label="Fechar">×</button>
+      <h3 id="giftModalTitle">Registrar presente</h3>
+      <p data-gift-modal-copy>Informe seu nome para registrar o presente.</p>
+      <label class="modal-field">
+        <span>nome completo</span>
+        <input type="text" data-gift-buyer placeholder="Nome do convidado">
+      </label>
+      <button class="btn terracotta block" type="button" data-confirm-gift>Já realizei o pagamento</button>
+    </div>
+  </div>
+
+  <div class="toast-region" data-toasts aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

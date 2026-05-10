@@ -1,0 +1,15 @@
+# Arquivos originais e referências de design mantidos localmente
+index - R*.html
+ALTERAÇÕES SITE CASAMENTO.txt
+Fotos/
+Versão Claude Design/
+
+# Sistema operacional e editores
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Dependências ou builds locais
+node_modules/
+dist/
+build/

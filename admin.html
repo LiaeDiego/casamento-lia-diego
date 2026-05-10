@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modo noivos · Lia e Diego</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+  <script src="site-config.js"></script>
+  <script src="admin.js" defer></script>
+</head>
+<body>
+  <header class="admin-topbar">
+    <div>
+      <strong>Lia e Diego</strong>
+      <span>Modo noivos</span>
+    </div>
+    <nav>
+      <a href="index.html" target="_blank" rel="noopener">Ver site</a>
+      <button type="button" data-save-state>Salvar alterações</button>
+    </nav>
+  </header>
+
+  <main class="admin-shell">
+    <section class="login-card" data-login>
+      <h1>Entrar no modo noivos</h1>
+      <p>Use a senha configurada no Google Apps Script para carregar e salvar os dados online.</p>
+      <label>
+        <span>senha</span>
+        <input type="password" data-admin-password autocomplete="current-password">
+      </label>
+      <button type="button" data-login-button>Entrar</button>
+      <p class="hint" data-local-warning hidden>Sem URL de API em <code>site-config.js</code>. O painel funcionará em modo local neste navegador.</p>
+    </section>
+
+    <section class="workspace" data-workspace hidden>
+      <aside class="tabs" aria-label="Áreas de edição">
+        <button class="active" type="button" data-tab-button="conteudo">Conteúdo</button>
+        <button type="button" data-tab-button="secoes">Seções</button>
+        <button type="button" data-tab-button="presentes">Presentes</button>
+        <button type="button" data-tab-button="listas">FAQ e listas</button>
+        <button type="button" data-tab-button="rsvp">RSVP</button>
+        <button type="button" data-tab-button="recados">Recados</button>
+      </aside>
+
+      <section class="panel active" data-tab="conteudo">
+        <div class="panel-head">
+          <h2>Conteúdo principal</h2>
+          <p>Textos, data, cores e imagens usadas no site.</p>
+        </div>
+        <div class="grid two">
+          <label><span>Nomes</span><input data-field="site.nomes"></label>
+          <label><span>Frase curta</span><input data-field="site.tagline"></label>
+          <label><span>Data</span><input type="date" data-field="site.date"></label>
+          <label><span>Horário</span><input type="time" data-field="site.time"></label>
+          <label><span>Cidade/local</span><input data-field="site.location"></label>
+          <label><span>Endereço completo</span><input data-field="site.address"></label>
+          <label><span>Imagem hero URL</span><input data-field="site.heroImage"></label>
+          <label><span>Imagem história URL</span><input data-field="site.storyImage"></label>
+          <label><span>Chave PIX</span><input data-field="site.pixKey"></label>
+          <label><span>Texto da lista de presentes</span><input data-field="site.giftsIntro"></label>
+        </div>
+        <label class="wide"><span>História dos noivos (HTML simples permitido)</span><textarea rows="9" data-field="site.storyHtml"></textarea></label>
+        <div class="grid four colors">
+          <label><span>Borgonha</span><input type="color" data-field="theme.burgundy"></label>
+          <label><span>Terracota</span><input type="color" data-field="theme.terracotta"></label>
+          <label><span>Creme</span><input type="color" data-field="theme.cream"></label>
+          <label><span>Marrom</span><input type="color" data-field="theme.brown"></label>
+        </div>
+      </section>
+
+      <section class="panel" data-tab="secoes">
+        <div class="panel-head">
+          <h2>Seções</h2>
+          <p>Controle o que aparece e a ordem dos blocos no site.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Visível</th><th>Seção</th><th>Ordem</th></tr></thead>
+            <tbody data-sections-list></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" data-tab="presentes">
+        <div class="panel-head">
+          <h2>Presentes</h2>
+          <p>Mantenha o formato do R03: link PIX e link de cartão por presente.</p>
+        </div>
+        <div class="actions-row">
+          <button type="button" data-add-gift>+ Adicionar presente</button>
+        </div>
+        <div data-gifts-editor></div>
+      </section>
+
+      <section class="panel" data-tab="listas">
+        <div class="panel-head">
+          <h2>FAQ, acomodações e galeria</h2>
+          <p>Edite as listas em JSON. Use aspas duplas e mantenha a estrutura dos exemplos.</p>
+        </div>
+        <label class="wide"><span>Galeria</span><textarea rows="9" data-json-field="gallery"></textarea></label>
+        <label class="wide"><span>Perguntas frequentes</span><textarea rows="9" data-json-field="faq"></textarea></label>
+        <label class="wide"><span>Acomodações</span><textarea rows="9" data-json-field="lodging"></textarea></label>
+      </section>
+
+      <section class="panel" data-tab="rsvp">
+        <div class="panel-head">
+          <h2>Confirmações</h2>
+          <p>Edite respostas, registre manualmente e exporte para Excel.</p>
+        </div>
+        <div class="stats" data-rsvp-stats></div>
+        <div class="actions-row">
+          <button type="button" data-add-rsvp>+ Nova confirmação</button>
+          <button type="button" data-export-rsvp>Exportar Excel/CSV</button>
+        </div>
+        <div class="table-wrap" data-rsvp-table></div>
+      </section>
+
+      <section class="panel" data-tab="recados">
+        <div class="panel-head">
+          <h2>Recados</h2>
+          <p>Remova mensagens quando necessário.</p>
+        </div>
+        <div class="table-wrap" data-messages-table></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog data-rsvp-dialog>
+    <form method="dialog" class="dialog-card" data-rsvp-form>
+      <h3 data-rsvp-dialog-title>Nova confirmação</h3>
+      <label><span>Presença</span><select data-rsvp-field="attending"><option value="sim">Sim</option><option value="nao">Não poderei ir</option></select></label>
+      <label><span>Nome completo</span><input data-rsvp-field="responsavel" required></label>
+      <label><span>Acompanhantes (um por linha)</span><textarea rows="5" data-rsvp-field="convidadosText"></textarea></label>
+      <label><span>Observações</span><textarea rows="4" data-rsvp-field="observacoes"></textarea></label>
+      <div class="dialog-actions">
+        <button type="button" data-close-rsvp-dialog>Cancelar</button>
+        <button type="submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast-region" data-toasts aria-live="polite"></div>
+</body>
+</html>

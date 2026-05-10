@@ -7,7 +7,7 @@
   <meta name="description" content="Site do casamento de Lia e Diego">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script src="site-config.js"></script>
   <script src="app.js" defer></script>
@@ -30,15 +30,13 @@
       <div class="hero-photo" data-bg="site.heroImage"></div>
       <div class="hero-card">
         <p class="script-title" data-text="site.nomes">Lia e Diego</p>
-        <div class="chairs" aria-hidden="true">
-          <span></span><span></span>
-        </div>
+        <div class="chairs" aria-hidden="true"><img src="assets/chairs.png" alt=""></div>
       </div>
       <div class="hero-tag-card" data-text="site.tagline">onde o amor se senta à mesa</div>
       <a class="scroll-cue" href="#contagem" aria-label="Ir para a próxima seção"></a>
     </section>
 
-    <section id="contagem" class="countdown site-section" data-section="countdown">
+    <section id="contagem" class="countdown site-section" data-section="countdown" data-bg="site.countdownImage">
       <p class="eyebrow">contagem regressiva</p>
       <h1>até o nosso "sim"</h1>
       <div class="countdown-grid" data-countdown></div>
@@ -68,11 +66,6 @@
         <p class="script-heading">Lista de Presentes</p>
         <p data-text="site.giftsIntro">Cada presente é um gesto que nos acompanhará para sempre.</p>
       </div>
-      <div class="pix-box">
-        <span>chave pix</span>
-        <strong data-text="site.pixKey">casamento.lia.diego@email.com</strong>
-        <button class="btn terracotta" type="button" data-copy-pix>Copiar chave PIX</button>
-      </div>
       <div class="gifts-grid" data-gifts></div>
     </section>
 
@@ -84,9 +77,12 @@
 
     <section id="rsvp" class="rsvp site-section" data-section="rsvp">
       <div class="rsvp-card">
-        <p class="eyebrow">confirmação de presença</p>
-        <h2>Você estará conosco?</h2>
-        <form id="rsvpForm" class="form">
+        <div class="rsvp-intro" data-rsvp-intro>
+          <p class="eyebrow">CONFIRMAÇÃO DE PRESENÇA</p>
+          <p class="rsvp-invite">Por favor nos avise se você poderá nos<br>acompanhar nesse dia tão especial<br>clicando no botão abaixo</p>
+          <button class="btn terracotta" type="button" data-open-rsvp>Confirmar</button>
+        </div>
+        <form id="rsvpForm" class="form" hidden>
           <label>
             <span>presença</span>
             <select id="rsvpAttending" required>
@@ -141,7 +137,7 @@
   </main>
 
   <footer class="footer site-section" data-section="footer">
-    <div class="chairs" aria-hidden="true"><span></span><span></span></div>
+    <div class="chairs" aria-hidden="true"><img src="assets/chairs.png" alt=""></div>
     <p class="script-title" data-text="site.nomes">Lia e Diego</p>
     <p><span data-text="site.dateLong">01 de novembro de 2026</span> · <span data-text="site.location">Itapetininga</span></p>
     <p data-text="site.tagline">onde o amor se senta à mesa</p>
@@ -152,12 +148,16 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="giftModalTitle">
       <button class="modal-close" type="button" data-close-gift aria-label="Fechar">×</button>
       <h3 id="giftModalTitle">Registrar presente</h3>
-      <p data-gift-modal-copy>Informe seu nome para registrar o presente.</p>
+      <p data-gift-modal-copy>Informe seu nome e escolha a forma de pagamento.</p>
       <label class="modal-field">
         <span>nome completo</span>
         <input type="text" data-gift-buyer placeholder="Nome do convidado">
       </label>
-      <button class="btn terracotta block" type="button" data-confirm-gift>Já realizei o pagamento</button>
+      <div class="modal-actions">
+        <button class="btn terracotta" type="button" data-start-payment="pix">PIX</button>
+        <button class="btn burgundy" type="button" data-start-payment="cartao">Cartão</button>
+      </div>
+      <button class="btn terracotta block" type="button" data-confirm-gift hidden>Já realizei o pagamento</button>
     </div>
   </div>
 

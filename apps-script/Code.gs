@@ -303,10 +303,10 @@ function defaultState_() {
       location: 'Itapetininga',
       address: 'Endereço a definir',
       heroImage: 'assets/casal.jpg',
+      countdownImage: 'assets/casal.jpg',
       storyImage: 'assets/casal.jpg',
       storyHtml: '<p>Os noivos editarão este texto depois da publicação.</p>',
-      giftsIntro: 'Cada presente é um gesto que nos acompanhará para sempre.',
-      pixKey: 'casamento.lia.diego@email.com'
+      giftsIntro: 'Cada presente é um gesto que nos acompanhará para sempre.'
     },
     theme: {
       burgundy: '#951c31',

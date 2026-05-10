@@ -8,10 +8,10 @@ const DEFAULT_STATE = {
     location: "Itapetininga",
     address: "Endereço a definir",
     heroImage: "assets/casal.jpg",
+    countdownImage: "assets/casal.jpg",
     storyImage: "assets/casal.jpg",
     storyHtml: "<p>Os noivos editarão este texto depois da publicação.</p>",
-    giftsIntro: "Cada presente é um gesto que nos acompanhará para sempre.",
-    pixKey: "casamento.lia.diego@email.com"
+    giftsIntro: "Cada presente é um gesto que nos acompanhará para sempre."
   },
   theme: {
     burgundy: "#951c31",
@@ -80,7 +80,6 @@ async function init() {
   bindRsvp();
   bindMessages();
   bindGiftModal();
-  bindPixCopy();
   state = await loadState();
   applyState();
 }
@@ -192,7 +191,11 @@ function applyText() {
   });
   document.querySelectorAll("[data-bg]").forEach((el) => {
     const value = getByPath(site, el.dataset.bg.replace(/^site\./, ""));
-    if (value) el.style.backgroundImage = `linear-gradient(90deg, rgba(255, 200, 140, 0.18), rgba(255, 244, 223, 0.06) 58%), url("${cssUrl(value)}")`;
+    if (!value) return;
+    const overlay = el.classList.contains("countdown")
+      ? "linear-gradient(rgba(255, 244, 223, 0.88), rgba(255, 244, 223, 0.9))"
+      : "linear-gradient(90deg, rgba(255, 200, 140, 0.18), rgba(255, 244, 223, 0.06) 58%)";
+    el.style.backgroundImage = `${overlay}, url("${cssUrl(value)}")`;
   });
 }
 
@@ -258,28 +261,25 @@ function renderGifts() {
         <p class="gift-value">${formatCurrency(gift.valor)}</p>
         <p>${unavailable ? "Já presenteado" : `${available} de ${gift.qtdTotal || 1} disponível${available > 1 ? "is" : ""}`}</p>
         <div class="gift-actions">
-          <button class="btn terracotta" type="button" data-buy-gift="${gift.id}" data-method="pix" ${unavailable ? "disabled" : ""}>PIX</button>
-          <button class="btn ghost" type="button" data-buy-gift="${gift.id}" data-method="cartao" ${unavailable ? "disabled" : ""}>Cartão</button>
+          <button class="btn terracotta" type="button" data-buy-gift="${gift.id}" ${unavailable ? "disabled" : ""}>Comprar</button>
         </div>
       </article>
     `;
   }).join("");
   container.querySelectorAll("[data-buy-gift]").forEach((button) => {
-    button.addEventListener("click", () => openGiftFlow(button.dataset.buyGift, button.dataset.method));
+    button.addEventListener("click", () => openGiftFlow(button.dataset.buyGift));
   });
 }
 
-function openGiftFlow(giftId, method) {
+function openGiftFlow(giftId) {
   const gift = state.gifts.find((item) => item.id === giftId);
   if (!gift) return;
   selectedGift = gift;
-  selectedGiftMethod = method;
-  const link = method === "pix" ? gift.linkPix : gift.linkCartao;
-  if (link) window.open(link, "_blank", "noopener,noreferrer");
-  document.querySelector("[data-gift-modal-copy]").textContent =
-    link ? "Abrimos o link de pagamento em outra aba. Depois de pagar, informe seu nome para registrar." :
-      "Este presente ainda não tem link cadastrado. Informe seu nome apenas se já tiver combinado o pagamento com os noivos.";
+  selectedGiftMethod = null;
+  document.getElementById("giftModalTitle").textContent = gift.nome;
+  document.querySelector("[data-gift-modal-copy]").textContent = "Informe seu nome e escolha a forma de pagamento.";
   document.querySelector("[data-gift-buyer]").value = "";
+  document.querySelector("[data-confirm-gift]").hidden = true;
   document.querySelector("[data-gift-modal]").hidden = false;
   setTimeout(() => document.querySelector("[data-gift-buyer]").focus(), 20);
 }
@@ -287,7 +287,10 @@ function openGiftFlow(giftId, method) {
 function bindGiftModal() {
   document.querySelector("[data-close-gift]").addEventListener("click", closeGiftModal);
   document.querySelector("[data-gift-modal]").addEventListener("click", (event) => {
-    if (event.target.matches("[data-gift-modal]")) closeGiftModal();
+      if (event.target.matches("[data-gift-modal]")) closeGiftModal();
+    });
+  document.querySelectorAll("[data-start-payment]").forEach((button) => {
+    button.addEventListener("click", () => startGiftPayment(button.dataset.startPayment));
   });
   document.querySelector("[data-confirm-gift]").addEventListener("click", async () => {
     const buyer = document.querySelector("[data-gift-buyer]").value.trim();
@@ -316,10 +319,28 @@ function bindGiftModal() {
   });
 }
 
+function startGiftPayment(method) {
+  const buyer = document.querySelector("[data-gift-buyer]").value.trim();
+  if (!buyer) {
+    toast("Informe seu nome antes de abrir o pagamento.", "error");
+    return;
+  }
+  const link = method === "pix" ? selectedGift.linkPix : selectedGift.linkCartao;
+  if (!link) {
+    toast(method === "pix" ? "Link PIX não cadastrado para este presente." : "Link de cartão não cadastrado para este presente.", "error");
+    return;
+  }
+  selectedGiftMethod = method;
+  window.open(link, "_blank", "noopener,noreferrer");
+  document.querySelector("[data-gift-modal-copy]").textContent = "Depois de concluir o pagamento, registre abaixo para avisar os noivos.";
+  document.querySelector("[data-confirm-gift]").hidden = false;
+}
+
 function closeGiftModal() {
   document.querySelector("[data-gift-modal]").hidden = true;
   selectedGift = null;
   selectedGiftMethod = null;
+  document.querySelector("[data-confirm-gift]").hidden = true;
 }
 
 function renderGallery() {
@@ -367,9 +388,14 @@ function renderMessages() {
 }
 
 function bindRsvp() {
+  document.querySelector("[data-open-rsvp]").addEventListener("click", () => {
+    document.querySelector("[data-rsvp-intro]").hidden = true;
+    document.getElementById("rsvpForm").hidden = false;
+  });
   document.querySelector("[data-add-guest]").addEventListener("click", () => addGuestRow());
   document.querySelector("[data-new-rsvp]").addEventListener("click", () => {
-    document.getElementById("rsvpForm").hidden = false;
+    document.querySelector("[data-rsvp-intro]").hidden = false;
+    document.getElementById("rsvpForm").hidden = true;
     document.querySelector("[data-rsvp-success]").hidden = true;
   });
   document.getElementById("rsvpForm").addEventListener("submit", async (event) => {
@@ -407,6 +433,7 @@ function bindRsvp() {
       document.getElementById("rsvpForm").reset();
       document.querySelector("[data-guest-list]").innerHTML = "";
       document.getElementById("rsvpForm").hidden = true;
+      document.querySelector("[data-rsvp-intro]").hidden = true;
       document.querySelector("[data-rsvp-success-text]").textContent =
         payload.attending === "sim" ? "Que alegria saber que você estará conosco." : "Obrigado por avisar. Sentiremos sua falta.";
       document.querySelector("[data-rsvp-success]").hidden = false;
@@ -449,17 +476,6 @@ function bindMessages() {
     } catch (error) {
       console.error(error);
       toast(error.message || "Não foi possível enviar o recado.", "error");
-    }
-  });
-}
-
-function bindPixCopy() {
-  document.querySelector("[data-copy-pix]").addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(state.site.pixKey || "");
-      toast("Chave PIX copiada.");
-    } catch (error) {
-      toast("Não foi possível copiar automaticamente.", "error");
     }
   });
 }

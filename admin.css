@@ -1,4 +1,5 @@
 :root {
+  --display-font: "Antigua Presidente", "Cormorant Garamond", Georgia, serif;
   --burgundy: #951c31;
   --terracotta: #d16a49;
   --cream: #fff4df;
@@ -8,6 +9,12 @@
   --line: rgba(92, 63, 25, 0.18);
   --white: #fff;
   --danger: #9f1d1d;
+}
+
+@font-face {
+  font-family: "Antigua Presidente";
+  src: url("assets/fonts/AntiguaPresidente.ttf") format("truetype");
+  font-display: swap;
 }
 
 * { box-sizing: border-box; }
@@ -82,7 +89,7 @@ code { font-family: "JetBrains Mono", Consolas, monospace; }
 }
 .admin-topbar strong {
   display: block;
-  font-family: "Pinyon Script", cursive;
+  font-family: var(--display-font);
   font-size: 2rem;
   line-height: 0.9;
   font-weight: 400;

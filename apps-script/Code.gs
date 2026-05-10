@@ -90,7 +90,7 @@ function doPost(e) {
     if (action === 'adminSaveState') {
       const current = getState_();
       const incoming = normalizeStateForStorage_(body.state || {});
-      saveState_(Object.assign(current, incoming));
+      saveState_(mergeDefaults_(current, incoming));
       return json_({ ok: true, state: publicState_() });
     }
 
@@ -127,7 +127,7 @@ function getState_() {
   const raw = getSetting_(STATE_KEY);
   if (!raw) return defaultState_();
   try {
-    return Object.assign(defaultState_(), JSON.parse(raw));
+    return mergeDefaults_(defaultState_(), JSON.parse(raw));
   } catch (error) {
     return defaultState_();
   }
@@ -142,6 +142,22 @@ function normalizeStateForStorage_(state) {
   delete copy.rsvps;
   delete copy.messages;
   return copy;
+}
+
+function mergeDefaults_(base, incoming) {
+  const merged = JSON.parse(JSON.stringify(base || {}));
+  if (!incoming || typeof incoming !== 'object') return merged;
+  Object.keys(incoming).forEach(function(key) {
+    const value = incoming[key];
+    if (Array.isArray(value)) {
+      merged[key] = value;
+    } else if (value && typeof value === 'object' && merged[key] && typeof merged[key] === 'object' && !Array.isArray(merged[key])) {
+      merged[key] = mergeDefaults_(merged[key], value);
+    } else {
+      merged[key] = value;
+    }
+  });
+  return merged;
 }
 
 function appendRsvp_(rsvp) {
@@ -305,6 +321,9 @@ function defaultState_() {
       heroImage: 'assets/casal.jpg',
       countdownImage: 'assets/casal.jpg',
       storyImage: 'assets/casal.jpg',
+      saveDateImage: 'assets/casal.jpg',
+      heroChairsImage: 'assets/chairs.png',
+      footerChairsImage: 'assets/chairs.png',
       storyHtml: '<p>Os noivos editarão este texto depois da publicação.</p>',
       giftsIntro: 'Cada presente é um gesto que nos acompanhará para sempre.'
     },
@@ -313,6 +332,50 @@ function defaultState_() {
       terracotta: '#d16a49',
       cream: '#fff4df',
       brown: '#5c3f19'
+    },
+    visual: {
+      menu: { background: '#951c31', text: '#fff4df', borderOpacity: 0.24 },
+      hero: {
+        titleColor: '#951c31',
+        titleBackground: '#fff4df',
+        titleBackgroundOpacity: 0,
+        titleTop: 112,
+        titleLeft: 80,
+        titleWidth: 300,
+        tagColor: '#951c31',
+        tagTop: 470,
+        tagLeft: 138,
+        tagWidth: 280,
+        imagePosition: 'center',
+        overlayColor: '#fff4df',
+        overlayOpacity: 0.08
+      },
+      countdown: {
+        paddingY: 82,
+        eyebrowSize: 0.86,
+        titleSize: 4.9,
+        titleColor: '#5c3f19',
+        eyebrowColor: '#d16a49',
+        imagePosition: 'center',
+        overlayColor: '#fff4df',
+        overlayOpacity: 0.88
+      },
+      saveDate: { minHeight: 280, imagePosition: 'center', overlayColor: '#fff4df', overlayOpacity: 0.08 },
+      sections: { giftsPaddingY: 82, faqPaddingY: 82, galleryPaddingY: 86, lodgingPaddingY: 88, messagesPaddingY: 82, storyPaddingY: 92, rsvpPaddingY: 100 },
+      titles: { giftsTitleSize: 5.8, faqTitleSize: 5.4, faqQuestionSize: 1.75, lodgingTitleSize: 5.9, footerTaglineSize: 2.15 },
+      blocks: {
+        giftsBackground: '#fff4df',
+        faqBackground: '#fff4df',
+        galleryBackground: '#f4e5c8',
+        lodgingBackground: '#d16a49',
+        messagesBackground: '#f4e5c8',
+        footerBackground: '#951c31',
+        footerText: '#fff4df',
+        cardBackground: '#ffffff',
+        cardOpacity: 0.66,
+        cardBorderColor: '#5c3f19',
+        cardBorderOpacity: 0.14
+      }
     },
     sections: [
       { id: 'hero', label: 'Início', visible: true, order: 1 },

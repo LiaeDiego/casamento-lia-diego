@@ -10,10 +10,57 @@ const DEFAULT_STATE = {
     heroImage: "assets/casal.jpg",
     countdownImage: "assets/casal.jpg",
     storyImage: "assets/casal.jpg",
+    saveDateImage: "assets/casal.jpg",
+    heroChairsImage: "assets/chairs.png",
+    footerChairsImage: "assets/chairs.png",
     storyHtml: "<p>Os noivos editarão este texto depois da publicação.</p>",
     giftsIntro: "Cada presente é um gesto que nos acompanhará para sempre."
   },
   theme: { burgundy: "#951c31", terracotta: "#d16a49", cream: "#fff4df", brown: "#5c3f19" },
+  visual: {
+    menu: { background: "#951c31", text: "#fff4df", borderOpacity: 0.24 },
+    hero: {
+      titleColor: "#951c31",
+      titleBackground: "#fff4df",
+      titleBackgroundOpacity: 0,
+      titleTop: 112,
+      titleLeft: 80,
+      titleWidth: 300,
+      tagColor: "#951c31",
+      tagTop: 470,
+      tagLeft: 138,
+      tagWidth: 280,
+      imagePosition: "center",
+      overlayColor: "#fff4df",
+      overlayOpacity: 0.08
+    },
+    countdown: {
+      paddingY: 82,
+      eyebrowSize: 0.86,
+      titleSize: 4.9,
+      titleColor: "#5c3f19",
+      eyebrowColor: "#d16a49",
+      imagePosition: "center",
+      overlayColor: "#fff4df",
+      overlayOpacity: 0.88
+    },
+    saveDate: { minHeight: 280, imagePosition: "center", overlayColor: "#fff4df", overlayOpacity: 0.08 },
+    sections: { giftsPaddingY: 82, faqPaddingY: 82, galleryPaddingY: 86, lodgingPaddingY: 88, messagesPaddingY: 82, storyPaddingY: 92, rsvpPaddingY: 100 },
+    titles: { giftsTitleSize: 5.8, faqTitleSize: 5.4, faqQuestionSize: 1.75, lodgingTitleSize: 5.9, footerTaglineSize: 2.15 },
+    blocks: {
+      giftsBackground: "#fff4df",
+      faqBackground: "#fff4df",
+      galleryBackground: "#f4e5c8",
+      lodgingBackground: "#d16a49",
+      messagesBackground: "#f4e5c8",
+      footerBackground: "#951c31",
+      footerText: "#fff4df",
+      cardBackground: "#ffffff",
+      cardOpacity: 0.66,
+      cardBorderColor: "#5c3f19",
+      cardBorderOpacity: 0.14
+    }
+  },
   sections: [
     { id: "hero", label: "Início", visible: true, order: 1 },
     { id: "countdown", label: "Contagem", visible: true, order: 2 },
@@ -81,6 +128,9 @@ function initAdmin() {
     button.addEventListener("click", () => openTab(button.dataset.tabButton));
   });
   document.querySelector("[data-add-gift]").addEventListener("click", addGift);
+  document.querySelector("[data-add-gallery]").addEventListener("click", addGalleryItem);
+  document.querySelector("[data-add-faq]").addEventListener("click", addFaqItem);
+  document.querySelector("[data-add-lodging]").addEventListener("click", addLodgingItem);
   document.querySelector("[data-add-rsvp]").addEventListener("click", () => openRsvpDialog());
   document.querySelector("[data-export-rsvp]").addEventListener("click", exportRsvps);
   document.querySelector("[data-close-rsvp-dialog]").addEventListener("click", () => document.querySelector("[data-rsvp-dialog]").close());
@@ -115,7 +165,7 @@ async function login() {
 function renderAll() {
   bindFields();
   renderSections();
-  renderJsonEditors();
+  renderListEditors();
   renderGiftsEditor();
   renderRsvp();
   renderMessages();
@@ -123,8 +173,13 @@ function renderAll() {
 
 function bindFields() {
   document.querySelectorAll("[data-field]").forEach((field) => {
-    field.value = getPath(state, field.dataset.field) || "";
-    field.oninput = () => setPath(state, field.dataset.field, field.value);
+    const value = getPath(state, field.dataset.field);
+    field.value = value == null ? "" : value;
+    field.oninput = () => {
+      const shouldBeNumber = ["number", "range"].includes(field.type);
+      setPath(state, field.dataset.field, shouldBeNumber ? Number(field.value || 0) : field.value);
+    };
+    field.onchange = field.oninput;
   });
 }
 
@@ -149,26 +204,105 @@ function renderSections() {
   });
 }
 
-function renderJsonEditors() {
-  document.querySelectorAll("[data-json-field]").forEach((textarea) => {
-    const key = textarea.dataset.jsonField;
-    textarea.value = JSON.stringify(state[key] || [], null, 2);
-    textarea.oninput = () => {
-      textarea.dataset.dirty = "true";
-    };
+function renderListEditors() {
+  renderGalleryEditor();
+  renderFaqEditor();
+  renderLodgingEditor();
+}
+
+function renderGalleryEditor() {
+  const container = document.querySelector("[data-gallery-editor]");
+  state.gallery = Array.isArray(state.gallery) ? state.gallery : [];
+  container.innerHTML = state.gallery.map((item, index) => `
+    <article class="list-editor" data-gallery-index="${index}">
+      <h3>Foto ${index + 1}</h3>
+      <div class="list-editor-grid">
+        <label><span>Legenda</span><input data-gallery-field="label" value="${escapeAttr(item.label || "")}"></label>
+        <label><span>Imagem URL/caminho</span><input data-gallery-field="image" value="${escapeAttr(item.image || "")}"></label>
+      </div>
+      <div class="actions-row">
+        <button type="button" class="danger" data-remove-gallery="${index}">Excluir foto</button>
+      </div>
+    </article>
+  `).join("");
+  bindListInputs(container, "gallery", "gallery");
+}
+
+function renderFaqEditor() {
+  const container = document.querySelector("[data-faq-editor]");
+  state.faq = Array.isArray(state.faq) ? state.faq : [];
+  container.innerHTML = state.faq.map((item, index) => `
+    <article class="list-editor" data-faq-index="${index}">
+      <h3>Pergunta ${index + 1}</h3>
+      <div class="list-editor-grid">
+        <label class="full"><span>Pergunta</span><input data-faq-field="q" value="${escapeAttr(item.q || "")}"></label>
+        <label class="full"><span>Resposta</span><textarea rows="4" data-faq-field="a">${escapeHtml(item.a || "")}</textarea></label>
+      </div>
+      <div class="actions-row">
+        <button type="button" class="danger" data-remove-faq="${index}">Excluir pergunta</button>
+      </div>
+    </article>
+  `).join("");
+  bindListInputs(container, "faq", "faq");
+}
+
+function renderLodgingEditor() {
+  const container = document.querySelector("[data-lodging-editor]");
+  state.lodging = Array.isArray(state.lodging) ? state.lodging : [];
+  container.innerHTML = state.lodging.map((item, index) => `
+    <article class="list-editor" data-lodging-index="${index}">
+      <h3>Acomodação ${index + 1}</h3>
+      <div class="list-editor-grid">
+        <label><span>Nome</span><input data-lodging-field="name" value="${escapeAttr(item.name || "")}"></label>
+        <label><span>Tag</span><input data-lodging-field="tag" value="${escapeAttr(item.tag || "")}"></label>
+        <label><span>Distância</span><input data-lodging-field="distance" value="${escapeAttr(item.distance || "")}"></label>
+        <label><span>Valor</span><input data-lodging-field="price" value="${escapeAttr(item.price || "")}"></label>
+        <label class="full"><span>Código/observação</span><input data-lodging-field="code" value="${escapeAttr(item.code || "")}"></label>
+      </div>
+      <div class="actions-row">
+        <button type="button" class="danger" data-remove-lodging="${index}">Excluir acomodação</button>
+      </div>
+    </article>
+  `).join("");
+  bindListInputs(container, "lodging", "lodging");
+}
+
+function bindListInputs(container, stateKey, datasetKey) {
+  container.querySelectorAll(`[data-${datasetKey}-field]`).forEach((input) => {
+    input.addEventListener("input", () => {
+      const wrap = input.closest(`[data-${datasetKey}-index]`);
+      const item = state[stateKey][Number(wrap.dataset[`${datasetKey}Index`])];
+      item[input.dataset[`${datasetKey}Field`]] = input.value;
+    });
+  });
+  container.querySelectorAll(`[data-remove-${datasetKey}]`).forEach((button) => {
+    button.addEventListener("click", () => {
+      state[stateKey].splice(Number(button.dataset[`remove${capitalize(datasetKey)}`]), 1);
+      renderListEditors();
+    });
   });
 }
 
-function syncJsonEditors() {
-  document.querySelectorAll("[data-json-field]").forEach((textarea) => {
-    const key = textarea.dataset.jsonField;
-    try {
-      state[key] = JSON.parse(textarea.value || "[]");
-      textarea.dataset.dirty = "false";
-    } catch (error) {
-      throw new Error(`JSON inválido em ${key}.`);
-    }
-  });
+function addGalleryItem() {
+  state.gallery = Array.isArray(state.gallery) ? state.gallery : [];
+  state.gallery.push({ label: "Nova foto", image: "assets/casal.jpg" });
+  renderGalleryEditor();
+}
+
+function addFaqItem() {
+  state.faq = Array.isArray(state.faq) ? state.faq : [];
+  state.faq.push({ q: "Nova pergunta", a: "Resposta" });
+  renderFaqEditor();
+}
+
+function addLodgingItem() {
+  state.lodging = Array.isArray(state.lodging) ? state.lodging : [];
+  state.lodging.push({ name: "Nova acomodação", tag: "", distance: "", price: "", code: "" });
+  renderLodgingEditor();
+}
+
+function capitalize(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function renderGiftsEditor() {
@@ -226,7 +360,6 @@ function addGift() {
 
 async function saveState() {
   try {
-    syncJsonEditors();
     state.sections.sort((a, b) => Number(a.order || 0) - Number(b.order || 0));
     if (hasBackend) {
       await apiPost("adminSaveState", { password: adminPassword, state: publicState() });
@@ -448,11 +581,24 @@ function saveLocal() {
 function mergeState(base, remote) {
   const merged = clone(base);
   if (!remote || typeof remote !== "object") return merged;
-  ["site", "theme"].forEach((key) => {
-    merged[key] = { ...merged[key], ...(remote[key] || {}) };
+  ["site", "theme", "visual"].forEach((key) => {
+    merged[key] = mergeObject(merged[key], remote[key]);
   });
   ["sections", "gifts", "gallery", "faq", "lodging", "messages", "rsvps"].forEach((key) => {
     if (Array.isArray(remote[key])) merged[key] = remote[key];
+  });
+  return merged;
+}
+
+function mergeObject(baseValue, incomingValue) {
+  const merged = clone(baseValue || {});
+  if (!incomingValue || typeof incomingValue !== "object" || Array.isArray(incomingValue)) return merged;
+  Object.entries(incomingValue).forEach(([key, value]) => {
+    if (value && typeof value === "object" && !Array.isArray(value) && merged[key] && typeof merged[key] === "object" && !Array.isArray(merged[key])) {
+      merged[key] = mergeObject(merged[key], value);
+    } else {
+      merged[key] = value;
+    }
   });
   return merged;
 }

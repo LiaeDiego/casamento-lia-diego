@@ -38,6 +38,7 @@
     <section class="workspace" data-workspace hidden>
       <aside class="tabs" aria-label="Áreas de edição">
         <button class="active" type="button" data-tab-button="conteudo">Conteúdo</button>
+        <button type="button" data-tab-button="aparencia">Aparência</button>
         <button type="button" data-tab-button="secoes">Seções</button>
         <button type="button" data-tab-button="presentes">Presentes</button>
         <button type="button" data-tab-button="listas">FAQ e listas</button>
@@ -60,6 +61,9 @@
           <label><span>Imagem hero URL</span><input data-field="site.heroImage"></label>
           <label><span>Imagem da contagem URL</span><input data-field="site.countdownImage"></label>
           <label><span>Imagem história URL</span><input data-field="site.storyImage"></label>
+          <label><span>Imagem save the date URL</span><input data-field="site.saveDateImage"></label>
+          <label><span>Cadeiras do hero URL</span><input data-field="site.heroChairsImage"></label>
+          <label><span>Cadeiras do rodapé URL</span><input data-field="site.footerChairsImage"></label>
           <label><span>Texto da lista de presentes</span><input data-field="site.giftsIntro"></label>
         </div>
         <label class="wide"><span>História dos noivos (HTML simples permitido)</span><textarea rows="9" data-field="site.storyHtml"></textarea></label>
@@ -68,6 +72,85 @@
           <label><span>Terracota</span><input type="color" data-field="theme.terracotta"></label>
           <label><span>Creme</span><input type="color" data-field="theme.cream"></label>
           <label><span>Marrom</span><input type="color" data-field="theme.brown"></label>
+        </div>
+      </section>
+
+      <section class="panel" data-tab="aparencia">
+        <div class="panel-head">
+          <h2>Aparência</h2>
+          <p>Controles guiados para ajustar cores, tamanhos, posições, espaçamentos e transparências.</p>
+        </div>
+        <div class="appearance-grid">
+          <fieldset class="appearance-card">
+            <legend>Menu</legend>
+            <label><span>Fundo</span><input type="color" data-field="visual.menu.background"></label>
+            <label><span>Texto</span><input type="color" data-field="visual.menu.text"></label>
+            <label><span>Transparência da borda</span><input type="number" min="0" max="1" step="0.01" data-field="visual.menu.borderOpacity"></label>
+          </fieldset>
+
+          <fieldset class="appearance-card">
+            <legend>Hero</legend>
+            <label><span>Cor do título</span><input type="color" data-field="visual.hero.titleColor"></label>
+            <label><span>Fundo do título</span><input type="color" data-field="visual.hero.titleBackground"></label>
+            <label><span>Transparência do fundo</span><input type="number" min="0" max="1" step="0.01" data-field="visual.hero.titleBackgroundOpacity"></label>
+            <label><span>Topo do título (px)</span><input type="number" min="0" step="1" data-field="visual.hero.titleTop"></label>
+            <label><span>Esquerda do título (px)</span><input type="number" min="0" step="1" data-field="visual.hero.titleLeft"></label>
+            <label><span>Largura do título (px)</span><input type="number" min="160" step="1" data-field="visual.hero.titleWidth"></label>
+            <label><span>Cor da frase curta</span><input type="color" data-field="visual.hero.tagColor"></label>
+            <label><span>Topo da frase (px)</span><input type="number" min="0" step="1" data-field="visual.hero.tagTop"></label>
+            <label><span>Esquerda da frase (px)</span><input type="number" min="0" step="1" data-field="visual.hero.tagLeft"></label>
+            <label><span>Largura da frase (px)</span><input type="number" min="160" step="1" data-field="visual.hero.tagWidth"></label>
+            <label><span>Posição da imagem</span><select data-field="visual.hero.imagePosition"><option value="center">center</option><option value="top">top</option><option value="bottom">bottom</option><option value="left">left</option><option value="right">right</option></select></label>
+            <label><span>Cor do overlay</span><input type="color" data-field="visual.hero.overlayColor"></label>
+            <label><span>Transparência do overlay</span><input type="number" min="0" max="1" step="0.01" data-field="visual.hero.overlayOpacity"></label>
+          </fieldset>
+
+          <fieldset class="appearance-card">
+            <legend>Contagem</legend>
+            <label><span>Espaçamento vertical (px)</span><input type="number" min="24" step="1" data-field="visual.countdown.paddingY"></label>
+            <label><span>Tamanho "contagem regressiva" (rem)</span><input type="number" min="0.5" step="0.05" data-field="visual.countdown.eyebrowSize"></label>
+            <label><span>Tamanho do título (rem)</span><input type="number" min="2" step="0.05" data-field="visual.countdown.titleSize"></label>
+            <label><span>Cor do título</span><input type="color" data-field="visual.countdown.titleColor"></label>
+            <label><span>Cor do rótulo</span><input type="color" data-field="visual.countdown.eyebrowColor"></label>
+            <label><span>Posição da imagem</span><select data-field="visual.countdown.imagePosition"><option value="center">center</option><option value="top">top</option><option value="bottom">bottom</option><option value="left">left</option><option value="right">right</option></select></label>
+            <label><span>Cor do overlay</span><input type="color" data-field="visual.countdown.overlayColor"></label>
+            <label><span>Transparência do overlay</span><input type="number" min="0" max="1" step="0.01" data-field="visual.countdown.overlayOpacity"></label>
+          </fieldset>
+
+          <fieldset class="appearance-card">
+            <legend>Blocos e cards</legend>
+            <label><span>Fundo presentes</span><input type="color" data-field="visual.blocks.giftsBackground"></label>
+            <label><span>Fundo FAQ</span><input type="color" data-field="visual.blocks.faqBackground"></label>
+            <label><span>Fundo galeria</span><input type="color" data-field="visual.blocks.galleryBackground"></label>
+            <label><span>Fundo acomodações</span><input type="color" data-field="visual.blocks.lodgingBackground"></label>
+            <label><span>Fundo recados</span><input type="color" data-field="visual.blocks.messagesBackground"></label>
+            <label><span>Fundo rodapé</span><input type="color" data-field="visual.blocks.footerBackground"></label>
+            <label><span>Texto rodapé</span><input type="color" data-field="visual.blocks.footerText"></label>
+            <label><span>Fundo dos cards</span><input type="color" data-field="visual.blocks.cardBackground"></label>
+            <label><span>Transparência dos cards</span><input type="number" min="0" max="1" step="0.01" data-field="visual.blocks.cardOpacity"></label>
+            <label><span>Cor da borda dos cards</span><input type="color" data-field="visual.blocks.cardBorderColor"></label>
+            <label><span>Transparência da borda</span><input type="number" min="0" max="1" step="0.01" data-field="visual.blocks.cardBorderOpacity"></label>
+          </fieldset>
+
+          <fieldset class="appearance-card">
+            <legend>Títulos e espaçamentos</legend>
+            <label><span>Título presentes (rem)</span><input type="number" min="2" step="0.05" data-field="visual.titles.giftsTitleSize"></label>
+            <label><span>Título FAQ (rem)</span><input type="number" min="2" step="0.05" data-field="visual.titles.faqTitleSize"></label>
+            <label><span>Perguntas FAQ (rem)</span><input type="number" min="1" step="0.05" data-field="visual.titles.faqQuestionSize"></label>
+            <label><span>Título acomodações (rem)</span><input type="number" min="2" step="0.05" data-field="visual.titles.lodgingTitleSize"></label>
+            <label><span>Frase do rodapé (rem)</span><input type="number" min="1" step="0.05" data-field="visual.titles.footerTaglineSize"></label>
+            <label><span>Presentes padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.giftsPaddingY"></label>
+            <label><span>FAQ padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.faqPaddingY"></label>
+            <label><span>Galeria padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.galleryPaddingY"></label>
+            <label><span>Acomodações padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.lodgingPaddingY"></label>
+            <label><span>Recados padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.messagesPaddingY"></label>
+            <label><span>História padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.storyPaddingY"></label>
+            <label><span>RSVP padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.rsvpPaddingY"></label>
+            <label><span>Altura save the date (px)</span><input type="number" min="120" step="1" data-field="visual.saveDate.minHeight"></label>
+            <label><span>Posição imagem save</span><select data-field="visual.saveDate.imagePosition"><option value="center">center</option><option value="top">top</option><option value="bottom">bottom</option><option value="left">left</option><option value="right">right</option></select></label>
+            <label><span>Cor overlay save</span><input type="color" data-field="visual.saveDate.overlayColor"></label>
+            <label><span>Transparência overlay save</span><input type="number" min="0" max="1" step="0.01" data-field="visual.saveDate.overlayOpacity"></label>
+          </fieldset>
         </div>
       </section>
 
@@ -98,11 +181,20 @@
       <section class="panel" data-tab="listas">
         <div class="panel-head">
           <h2>FAQ, acomodações e galeria</h2>
-          <p>Edite as listas em JSON. Use aspas duplas e mantenha a estrutura dos exemplos.</p>
+          <p>Edite cada item por campos, sem precisar mexer em JSON.</p>
         </div>
-        <label class="wide"><span>Galeria</span><textarea rows="9" data-json-field="gallery"></textarea></label>
-        <label class="wide"><span>Perguntas frequentes</span><textarea rows="9" data-json-field="faq"></textarea></label>
-        <label class="wide"><span>Acomodações</span><textarea rows="9" data-json-field="lodging"></textarea></label>
+        <div class="list-editor-section">
+          <div class="actions-row"><button type="button" data-add-gallery>+ Adicionar foto</button></div>
+          <div data-gallery-editor></div>
+        </div>
+        <div class="list-editor-section">
+          <div class="actions-row"><button type="button" data-add-faq>+ Adicionar pergunta</button></div>
+          <div data-faq-editor></div>
+        </div>
+        <div class="list-editor-section">
+          <div class="actions-row"><button type="button" data-add-lodging>+ Adicionar acomodação</button></div>
+          <div data-lodging-editor></div>
+        </div>
       </section>
 
       <section class="panel" data-tab="rsvp">

@@ -1,3 +1,35 @@
+const GIFT_IMAGE_URLS = {
+  p3: "https://images.unsplash.com/photo-1607863680198-23d4b2565df0?auto=format&fit=crop&w=900&q=80",
+  p1778448357143: "https://images.unsplash.com/photo-1610632380989-680fe40816c6?auto=format&fit=crop&w=900&q=80",
+  p1778448526380: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=900&q=80",
+  p1778448531247: "https://images.unsplash.com/photo-1603336540413-009bd9dc5133?auto=format&fit=crop&w=900&q=80",
+  p1778448531362: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=900&q=80",
+  p1778448531555: "https://images.unsplash.com/photo-1612800317101-ed7de737b36f?auto=format&fit=crop&w=900&q=80",
+  p1778448531927: "https://images.unsplash.com/photo-1647381518264-97ff1835026f?auto=format&fit=crop&w=900&q=80",
+  p1778448532096: "https://images.unsplash.com/photo-1598901986949-f593ff2a31a6?auto=format&fit=crop&w=900&q=80",
+  p1778448532248: "https://images.unsplash.com/photo-1686178827149-6d55c72d81df?auto=format&fit=crop&w=900&q=80",
+  p1778448532366: "https://images.unsplash.com/photo-1635930919419-f935f8902b0f?auto=format&fit=crop&w=900&q=80",
+  p1778448532543: "https://images.unsplash.com/photo-1600369672770-985fd30004eb?auto=format&fit=crop&w=900&q=80",
+  p1778448532679: "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=900&q=80",
+  p1778448532827: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=900&q=80",
+  p1778448532967: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80",
+  p1778448533103: "https://images.unsplash.com/photo-1613067532415-90df85362423?auto=format&fit=crop&w=900&q=80",
+  p1778448533272: "https://images.unsplash.com/photo-1613067532415-90df85362423?auto=format&fit=crop&w=900&q=80",
+  p1778448533415: "https://images.unsplash.com/photo-1738484708927-c1f45df0b56e?auto=format&fit=crop&w=900&q=80",
+  p1778448533551: "https://images.unsplash.com/photo-1519558260268-cde7e03a0152?auto=format&fit=crop&w=900&q=80",
+  p1778448533700: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=900&q=80",
+  p1778448533983: "https://images.unsplash.com/photo-1621215052063-6ed29c948b31?auto=format&fit=crop&w=900&q=80",
+  p1778448534143: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=900&q=80",
+  p1778448534395: "https://images.unsplash.com/photo-1546608235-3310a2494cdf?auto=format&fit=crop&w=900&q=80",
+  p1778448534619: "https://images.unsplash.com/photo-1669211659110-3f3db4119b65?auto=format&fit=crop&w=900&q=80",
+  p1778448534739: "https://images.unsplash.com/photo-1668435528344-b70cedd6df88?auto=format&fit=crop&w=900&q=80",
+  p1778448534883: "https://images.unsplash.com/photo-1612372606404-0ab33e7187ee?auto=format&fit=crop&w=900&q=80",
+  p1778448535027: "https://images.unsplash.com/photo-1584990347193-6bebebfeaeee?auto=format&fit=crop&w=900&q=80",
+  p1778448535195: "https://images.unsplash.com/photo-1646861039459-fd9e3aabf3fb?auto=format&fit=crop&w=900&q=80",
+  p1778448535323: "https://images.unsplash.com/photo-1634474588707-de99f09285c0?auto=format&fit=crop&w=900&q=80",
+  p1778457652624: "https://images.unsplash.com/photo-1648538923547-074724ca7a18?auto=format&fit=crop&w=900&q=80"
+};
+
 const DEFAULT_STATE = {
   site: {
     nomes: "Lia e Diego",
@@ -7,14 +39,22 @@ const DEFAULT_STATE = {
     time: "10:00",
     location: "Itapetininga",
     address: "Endereço a definir",
-    heroImage: "assets/casal.jpg",
+    heroImage: "assets/PreWedding Lia e Diego-213.jpg",
     countdownImage: "assets/casal.jpg",
-    storyImage: "assets/casal.jpg",
+    storyImage: "assets/PreWedding Lia e Diego-17.jpg",
     saveDateImage: "assets/casal.jpg",
     heroChairsImage: "assets/chairs.png",
     footerChairsImage: "assets/chairs.png",
-    storyHtml: "<p>Os noivos editarão este texto depois da publicação.</p>",
-    giftsIntro: "Cada presente é um gesto que nos acompanhará para sempre."
+    storyHtml: `<p>Nos conhecemos na faculdade, por meio de amigos em comum, sem imaginar que ali começava a nossa história.
+
+Entre conversas, encontros entre amigos e um guarda-chuva esquecido, fomos nos aproximando. Nosso primeiro encontro não foi exatamente perfeito — na verdade, foi um bem desajeitado, cheio de nervosismo e silêncios. Um começo bem alternativo de comédia romântica, mas, de alguma forma, foi justamente ali que tudo começou.
+
+Depois daquela noite, vieram novas (e melhores) conversas, novos encontros e junto com um de chocolate, uma carta e um pedido para tentar de novo.
+
+A partir daí, a história foi acontecendo naturalmente. Os dois com rodinhas nos pés viajaram vários quilômetros, tiveram momentos em família, vários dates de cafés da manhã, o pedido de namoro em Holambra, a fase do namoro à distância, as conquistas profissionais, a formatura e muitas memórias construídas juntos.
+
+Hoje, celebramos tudo o que vivemos até aqui e damos o próximo passo da nossa história: o começo da nossa família.</p>`,
+    giftsIntro: "Não há necessidade de presentes em caixas – sua presença é realmente o melhor presente que poderíamos pedir. Mas se você desejar nos presentear com algo, criamos uma lista com alguns itens pra nos auxiliar nessa nova jornada."
   },
   theme: { burgundy: "#951c31", terracotta: "#d16a49", cream: "#fff4df", brown: "#5c3f19" },
   visual: {
@@ -63,9 +103,9 @@ const DEFAULT_STATE = {
   },
   sections: [
     { id: "hero", label: "Início", visible: true, order: 1 },
-    { id: "countdown", label: "Contagem", visible: true, order: 2 },
-    { id: "story", label: "História", visible: true, order: 3 },
-    { id: "saveDate", label: "Save the date", visible: true, order: 4 },
+    { id: "story", label: "História", visible: true, order: 2 },
+    { id: "countdown", label: "Contagem", visible: true, order: 3 },
+    { id: "saveDate", label: "Save the date", visible: false, order: 4 },
     { id: "gifts", label: "Presentes", visible: true, order: 5 },
     { id: "gallery", label: "Galeria", visible: true, order: 6 },
     { id: "rsvp", label: "RSVP", visible: true, order: 7 },
@@ -75,25 +115,46 @@ const DEFAULT_STATE = {
     { id: "footer", label: "Rodapé", visible: true, order: 11 }
   ],
   gifts: [
-    { id: "p1", nome: "Jogo de taças de cristal", valor: 280, qtdTotal: 2, qtdComprada: 0, linkPix: "", linkCartao: "", compradores: [] },
-    { id: "p2", nome: "Aparelho de jantar", valor: 650, qtdTotal: 1, qtdComprada: 0, linkPix: "", linkCartao: "", compradores: [] },
-    { id: "p3", nome: "Jogo de panelas", valor: 890, qtdTotal: 1, qtdComprada: 0, linkPix: "", linkCartao: "", compradores: [] },
-    { id: "p4", nome: "Jogo de cama king size", valor: 420, qtdTotal: 2, qtdComprada: 0, linkPix: "", linkCartao: "", compradores: [] },
-    { id: "p5", nome: "Cafeteira italiana", valor: 320, qtdTotal: 1, qtdComprada: 0, linkPix: "", linkCartao: "", compradores: [] },
-    { id: "p6", nome: "Liquidificador profissional", valor: 480, qtdTotal: 1, qtdComprada: 0, linkPix: "", linkCartao: "", compradores: [] }
+    { id: "p3", nome: "Cofrinho “Fundo emergencial para TPM”", valor: 89, qtdTotal: 2, qtdComprada: 0, image: GIFT_IMAGE_URLS.p3, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448357143", nome: "Caneca “eu nao preciso de google, minha esposa sabe tudo”", valor: 65, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448357143, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448526380", nome: "Pedágios da Lua de Mel", valor: 100, qtdTotal: 2, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448526380, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448531247", nome: "Tampão de ouvido pra noiva não ouvir o ronco do noivo", valor: 79, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448531247, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448531362", nome: "Lanchinho pra saciar a faminta da noiva", valor: 27.5, qtdTotal: 1000, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448531362, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448531555", nome: "Pano de chão pra casa dos noivos", valor: 125, qtdTotal: 5, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448531555, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448531927", nome: "Faxina paga pros noivos descansarem", valor: 150, qtdTotal: 4, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448531927, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448532096", nome: "Massagem relaxante para o noivo depois de ver a conta do casamento", valor: 200, qtdTotal: 2, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448532096, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448532248", nome: "Aspirador vertical", valor: 210, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448532248, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448532366", nome: "Pagar as multas de trânsito da Noiva", valor: 220, qtdTotal: 5, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448532366, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448532543", nome: "Cobertor pra noiva estar sempre coberta de razão", valor: 239, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448532543, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448532679", nome: "Um ano de streamings pra garantir a sessão cinema", valor: 264.99, qtdTotal: 3, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448532679, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448532827", nome: "6 meses de barbeiro pro noivo", valor: 289, qtdTotal: 2, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448532827, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448532967", nome: "Academia pros Noivos entrarem em forma depois da Lua de Mel", valor: 299, qtdTotal: 3, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448532967, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448533103", nome: "Primeiro lugar na fila do buffet", valor: 325, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448533103, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448533272", nome: "Segundo lugar na fila do buffet", valor: 300, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448533272, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448533415", nome: "Aparelho de Jantar", valor: 320, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448533415, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448533551", nome: "Alexa pra noiva não mandar só no noivo ", valor: 389, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448533551, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448533700", nome: "Jogar o Buque na sua direção", valor: 350, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448533700, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448533983", nome: "Prioridade no quarto de visitas", valor: 499, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448533983, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448534143", nome: "Spa Day pra noiva relaxar", valor: 450, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448534143, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448534395", nome: "Pro noivo poder jogar uma pelada toda semana", valor: 500, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448534395, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448534619", nome: "Purificador de água pros noivos ficarem bem hidratados", valor: 530, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448534619, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448534739", nome: "Diária na Lua de mel", valor: 599, qtdTotal: 6, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448534739, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448534883", nome: "Cadeira ergonômica pro escritório pra não ter dor nas costas", valor: 855, qtdTotal: 2, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448534883, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448535027", nome: "Jogo de panelas", valor: 700, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448535027, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448535195", nome: "Smart TV", valor: 3195, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448535195, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778448535323", nome: "Ajuda pra aposentadoria dos noivos", valor: 1755, qtdTotal: 2, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778448535323, linkPix: "", linkCartao: "", compradores: [] },
+    { id: "p1778457652624", nome: "Ir junto com os noivos pra Lua de Mel ", valor: 150000, qtdTotal: 1, qtdComprada: 0, image: GIFT_IMAGE_URLS.p1778457652624, linkPix: "", linkCartao: "", compradores: [] }
   ],
   gallery: [
-    { label: "2019 · o encontro", image: "assets/casal.jpg" },
-    { label: "Holambra · 2021", image: "assets/casal.jpg" },
-    { label: "Pedido · 2024", image: "assets/casal.jpg" },
-    { label: "Família", image: "assets/casal.jpg" },
-    { label: "Viagens", image: "assets/casal.jpg" },
-    { label: "01 · 11 · 2026", image: "assets/casal.jpg" }
+    { label: "2019 · o encontro", image: "assets/PreWedding Lia e Diego-103.jpg" },
+    { label: "Holambra · 2021", image: "assets/PreWedding Lia e Diego-111.jpg" },
+    { label: "Pedido · 2024", image: "assets/PreWedding Lia e Diego-171.jpg" },
+    { label: "Família", image: "assets/PreWedding Lia e Diego-103.jpg" }
   ],
   faq: [
-    { q: "Que horas devo chegar?", a: "Recomendamos chegar com antecedência para se acomodar antes da cerimônia." },
-    { q: "Posso levar acompanhante?", a: "Por favor, confirme no RSVP os acompanhantes que estarão com você." },
-    { q: "Qual é o dress code?", a: "Sugerimos traje leve e confortável, alinhado ao horário e ao local da celebração." }
+    { q: "Que horas devo chegar?", a: "Recomendamos que chegue por volta das 9h30 da manhã para que tenha tempo de se acomodar antes do início da cerimônia." },
+    { q: "Posso levar acompanhante?", a: "Como se trata de uma celebração pequena e íntima, pedimos gentilmente que compareçam apenas as pessoas listadas no convite. Caso tenha alguma dúvida, é só falar com a gente." },
+    { q: "Qual é o dress code?", a: "Sugerimos um traje leve e confortável, no estilo esporte fino, alinhado ao período da manhã. Tecidos mais fluidos, e sapatos confortáveis são bem-vindos." }
   ],
   lodging: [
     { name: "Hotel recomendado", tag: "recomendado", distance: "Distância a definir", price: "Valor a definir", code: "" },
@@ -587,7 +648,15 @@ function mergeState(base, remote) {
   ["sections", "gifts", "gallery", "faq", "lodging", "messages", "rsvps"].forEach((key) => {
     if (Array.isArray(remote[key])) merged[key] = remote[key];
   });
+  merged.gifts = withGiftImages(merged.gifts);
   return merged;
+}
+
+function withGiftImages(gifts) {
+  return (gifts || []).map((gift) => ({
+    ...gift,
+    image: gift.image || GIFT_IMAGE_URLS[gift.id] || ""
+  }));
 }
 
 function mergeObject(baseValue, incomingValue) {

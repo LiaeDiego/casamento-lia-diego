@@ -390,7 +390,7 @@ function renderGifts() {
         ${image ? `<figure class="gift-photo"><img src="${escapeAttr(image)}" alt="${escapeAttr(imageAlt)}" loading="lazy"></figure>` : ""}
         <h3>${escapeHtml(gift.nome)}</h3>
         <p class="gift-value">${formatCurrency(gift.valor)}</p>
-        <p>${unavailable ? "Já presenteado" : `${available} de ${gift.qtdTotal || 1} disponível${available > 1 ? "is" : ""}`}</p>
+        <p>${unavailable ? "Já presenteado" : `${available} de ${gift.qtdTotal || 1} ${available > 1 ? "disponíveis" : "disponível"}`}</p>
         <div class="gift-actions">
           <button class="btn terracotta" type="button" data-buy-gift="${gift.id}" ${unavailable ? "disabled" : ""}>Comprar</button>
         </div>

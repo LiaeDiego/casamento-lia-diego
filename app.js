@@ -185,10 +185,12 @@ Hoje, celebramos tudo o que vivemos até aqui e damos o próximo passo da nossa 
 };
 
 const LOCAL_KEY = "casamento_lia_diego_state_v1";
+const INITIAL_VISIBLE_GIFTS = 8;
 let state = clone(DEFAULT_STATE);
 let countdownTimer = null;
 let selectedGift = null;
 let selectedGiftMethod = null;
+let showAllGifts = false;
 
 const config = window.WEDDING_SITE_CONFIG || {};
 const apiUrl = (config.apiUrl || "").trim();
@@ -201,8 +203,22 @@ async function init() {
   bindRsvp();
   bindMessages();
   bindGiftModal();
-  state = await loadState();
-  applyState();
+  bindGiftList();
+  try {
+    state = await loadState();
+    applyState();
+  } catch (error) {
+    console.error(error);
+    toast("Não foi possível preparar o site. Usando dados locais.", "error");
+    state = mergeState(DEFAULT_STATE, readLocal());
+    applyState();
+  } finally {
+    revealSite();
+  }
+}
+
+function revealSite() {
+  document.body.classList.remove("site-loading");
 }
 
 function clone(value) {
@@ -429,10 +445,17 @@ function getByPath(obj, path) {
 
 function applySections() {
   const sectionMap = new Map((state.sections || []).map((section) => [section.id, section]));
+  const sectionVisibilityById = new Map();
   document.querySelectorAll("[data-section]").forEach((el) => {
     const item = sectionMap.get(el.dataset.section);
-    el.hidden = item ? item.visible === false : false;
+    const isVisible = item ? item.visible !== false : true;
+    el.hidden = !isVisible;
     el.style.order = item ? item.order : "";
+    if (el.id) sectionVisibilityById.set(el.id, isVisible);
+  });
+  document.querySelectorAll("[data-menu-links] a[href^='#']").forEach((link) => {
+    const targetId = link.getAttribute("href").slice(1);
+    link.hidden = sectionVisibilityById.get(targetId) === false;
   });
   const main = document.querySelector("main");
   main.style.display = "flex";
@@ -464,12 +487,16 @@ function renderCountdown() {
 
 function renderGifts() {
   const container = document.querySelector("[data-gifts]");
+  const moreWrap = document.querySelector("[data-gifts-more]");
+  const moreButton = document.querySelector("[data-show-more-gifts]");
   const gifts = state.gifts || [];
   if (!gifts.length) {
     container.innerHTML = "<p>Nenhum presente cadastrado ainda.</p>";
+    if (moreWrap) moreWrap.hidden = true;
     return;
   }
-  container.innerHTML = gifts.map((gift) => {
+  const visibleGifts = showAllGifts ? gifts : gifts.slice(0, INITIAL_VISIBLE_GIFTS);
+  container.innerHTML = visibleGifts.map((gift) => {
     const available = Math.max(0, Number(gift.qtdTotal || 0) - Number(gift.qtdComprada || 0));
     const unavailable = available <= 0;
     const image = String(gift.image || "").trim();
@@ -494,6 +521,18 @@ function renderGifts() {
       const photo = img.closest(".gift-photo");
       if (photo) photo.hidden = true;
     });
+  });
+  const hasHiddenGifts = visibleGifts.length < gifts.length;
+  if (moreWrap) moreWrap.hidden = !hasHiddenGifts;
+  if (moreButton) moreButton.setAttribute("aria-expanded", String(showAllGifts));
+}
+
+function bindGiftList() {
+  const button = document.querySelector("[data-show-more-gifts]");
+  if (!button) return;
+  button.addEventListener("click", () => {
+    showAllGifts = true;
+    renderGifts();
   });
 }
 

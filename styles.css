@@ -70,6 +70,15 @@ body {
   font-size: 18px;
   line-height: 1.65;
 }
+body.site-loading {
+  min-height: 100svh;
+  overflow: hidden;
+}
+body.site-loading .menu,
+body.site-loading main,
+body.site-loading .footer {
+  visibility: hidden;
+}
 body.menu-open { overflow: hidden; }
 img { max-width: 100%; display: block; }
 button, input, textarea, select { font: inherit; }
@@ -404,6 +413,11 @@ label span,
   margin-top: 18px;
 }
 .gift-actions .btn { flex: 1 1 110px; }
+.gifts-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
 
 .gallery {
   padding: var(--gallery-padding-y) clamp(22px, 7vw, 80px);

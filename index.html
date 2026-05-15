@@ -8,11 +8,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=estado-presentes-20260515">
+  <style>
+    body.site-loading {
+      overflow: hidden;
+    }
+    body.site-loading .menu,
+    body.site-loading main,
+    body.site-loading .footer {
+      visibility: hidden;
+    }
+  </style>
   <script src="site-config.js"></script>
-  <script src="app.js?v=presentes-20260514" defer></script>
+  <script src="app.js?v=estado-presentes-20260515" defer></script>
 </head>
-<body>
+<body class="site-loading">
   <nav class="menu" aria-label="Navegação principal">
     <a class="menu-logo" href="#inicio" data-text="site.nomes">Lia e Diego</a>
     <button class="menu-toggle" type="button" aria-label="Abrir menu" data-menu-toggle>☰</button>
@@ -67,6 +77,9 @@
         <p data-text="site.giftsIntro">Cada presente é um gesto que nos acompanhará para sempre.</p>
       </div>
       <div class="gifts-grid" data-gifts></div>
+      <div class="gifts-more" data-gifts-more hidden>
+        <button class="btn ghost" type="button" data-show-more-gifts aria-expanded="false">Mostrar mais presentes</button>
+      </div>
     </section>
 
     <section id="galeria" class="gallery site-section" data-section="gallery">

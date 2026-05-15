@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\diego\\\\OneDrive\\\\Documentos\\\\Trabalho\\\\Meu negócio\\\\Projetos\\\\Patrobol\\\\Patrobol\" -Force)",
+      "Bash(Select-Object Name, Mode, Length)",
+      "PowerShell(gh auth *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(gh repo view diego9739/Patrobol --json name,description,defaultBranchRef,url,homepageUrl,createdAt,updatedAt,pushedAt,isPrivate,visibility,languages 2>&1 | Out-String)",
+      "PowerShell(gh issue list --repo diego9739/Patrobol --state all --limit 100 --json number,title,state,labels,assignees,createdAt,updatedAt,body,comments 2>&1 | Out-String)",
+      "PowerShell($repo = \"C:\\\\Users\\\\diego\\\\OneDrive\\\\Documentos\\\\Trabalho\\\\Meu negócio\\\\Projetos\\\\Patrobol\\\\Patrobol\"; git -C $repo status --short --branch; \"---\"; git -C $repo log --oneline -10; \"---\"; git -C $repo branch -a)",
+      "PowerShell(gh pr list --repo diego9739/Patrobol --state all --limit 50 --json number,title,state,headRefName,baseRefName,createdAt,mergedAt,labels | Out-String)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell($repo = \"C:\\\\Users\\\\diego\\\\OneDrive\\\\Documentos\\\\Trabalho\\\\Meu negócio\\\\Projetos\\\\Patrobol\\\\Patrobol\"; git -C $repo fetch --all --prune 2>&1; \"---\"; git -C $repo status -uno; \"---\"; git -C $repo log --oneline origin/main -10)",
+      "PowerShell($repo = \"C:\\\\Users\\\\diego\\\\OneDrive\\\\Documentos\\\\Trabalho\\\\Meu negócio\\\\Projetos\\\\Patrobol\\\\Patrobol\"; git -C $repo pull --ff-only; \"---STATUS---\"; git -C $repo status -uno; \"---LOG---\"; git -C $repo log --oneline -5)"
+    ]
+  }
+}

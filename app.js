@@ -522,16 +522,19 @@ function renderGifts() {
       if (photo) photo.hidden = true;
     });
   });
-  const hasHiddenGifts = visibleGifts.length < gifts.length;
-  if (moreWrap) moreWrap.hidden = !hasHiddenGifts;
-  if (moreButton) moreButton.setAttribute("aria-expanded", String(showAllGifts));
+  const hasExpandableGifts = gifts.length > INITIAL_VISIBLE_GIFTS;
+  if (moreWrap) moreWrap.hidden = !hasExpandableGifts;
+  if (moreButton) {
+    moreButton.textContent = showAllGifts ? "Mostrar menos presentes" : "Mostrar mais presentes";
+    moreButton.setAttribute("aria-expanded", String(showAllGifts));
+  }
 }
 
 function bindGiftList() {
   const button = document.querySelector("[data-show-more-gifts]");
   if (!button) return;
   button.addEventListener("click", () => {
-    showAllGifts = true;
+    showAllGifts = !showAllGifts;
     renderGifts();
   });
 }

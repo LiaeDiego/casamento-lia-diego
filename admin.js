@@ -2,17 +2,17 @@ const GIFT_IMAGE_URLS = {
   p3: "https://images.unsplash.com/photo-1607863680198-23d4b2565df0?auto=format&fit=crop&w=900&q=80",
   p1778448357143: "https://images.unsplash.com/photo-1610632380989-680fe40816c6?auto=format&fit=crop&w=900&q=80",
   p1778448526380: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=900&q=80",
-  p1778448531247: "https://images.unsplash.com/photo-1603336540413-009bd9dc5133?auto=format&fit=crop&w=900&q=80",
+  p1778448531247: "assets/Tampão de ouvido.png",
   p1778448531362: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=900&q=80",
   p1778448531555: "https://images.unsplash.com/photo-1612800317101-ed7de737b36f?auto=format&fit=crop&w=900&q=80",
   p1778448531927: "https://images.unsplash.com/photo-1647381518264-97ff1835026f?auto=format&fit=crop&w=900&q=80",
-  p1778448532096: "https://images.unsplash.com/photo-1598901986949-f593ff2a31a6?auto=format&fit=crop&w=900&q=80",
-  p1778448532248: "https://images.unsplash.com/photo-1686178827149-6d55c72d81df?auto=format&fit=crop&w=900&q=80",
-  p1778448532366: "https://images.unsplash.com/photo-1635930919419-f935f8902b0f?auto=format&fit=crop&w=900&q=80",
+  p1778448532096: "assets/Massagem relaxante noivo.png",
+  p1778448532248: "assets/Aspirador .png",
+  p1778448532366: "assets/Multa do noivo .png",
   p1778448532543: "https://images.unsplash.com/photo-1600369672770-985fd30004eb?auto=format&fit=crop&w=900&q=80",
-  p1778448532679: "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=900&q=80",
-  p1778448532827: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=900&q=80",
-  p1778448532967: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80",
+  p1778448532679: "assets/Um ano de streaming .png",
+  p1778448532827: "assets/Barbeiro.png",
+  p1778448532967: "assets/Academia.png",
   p1778448533103: "https://images.unsplash.com/photo-1613067532415-90df85362423?auto=format&fit=crop&w=900&q=80",
   p1778448533272: "https://images.unsplash.com/photo-1613067532415-90df85362423?auto=format&fit=crop&w=900&q=80",
   p1778448533415: "https://images.unsplash.com/photo-1738484708927-c1f45df0b56e?auto=format&fit=crop&w=900&q=80",
@@ -20,14 +20,27 @@ const GIFT_IMAGE_URLS = {
   p1778448533700: "https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=900&q=80",
   p1778448533983: "https://images.unsplash.com/photo-1621215052063-6ed29c948b31?auto=format&fit=crop&w=900&q=80",
   p1778448534143: "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=900&q=80",
-  p1778448534395: "https://images.unsplash.com/photo-1546608235-3310a2494cdf?auto=format&fit=crop&w=900&q=80",
+  p1778448534395: "assets/Um ano de pelada.png",
   p1778448534619: "https://images.unsplash.com/photo-1669211659110-3f3db4119b65?auto=format&fit=crop&w=900&q=80",
   p1778448534739: "https://images.unsplash.com/photo-1668435528344-b70cedd6df88?auto=format&fit=crop&w=900&q=80",
-  p1778448534883: "https://images.unsplash.com/photo-1612372606404-0ab33e7187ee?auto=format&fit=crop&w=900&q=80",
+  p1778448534883: "assets/Cadeiras.png",
   p1778448535027: "https://images.unsplash.com/photo-1584990347193-6bebebfeaeee?auto=format&fit=crop&w=900&q=80",
   p1778448535195: "https://images.unsplash.com/photo-1646861039459-fd9e3aabf3fb?auto=format&fit=crop&w=900&q=80",
-  p1778448535323: "https://images.unsplash.com/photo-1634474588707-de99f09285c0?auto=format&fit=crop&w=900&q=80",
+  p1778448535323: "assets/Aposentadoria.png",
   p1778457652624: "https://images.unsplash.com/photo-1648538923547-074724ca7a18?auto=format&fit=crop&w=900&q=80"
+};
+
+const LEGACY_GIFT_IMAGE_URLS = {
+  p1778448531247: "https://images.unsplash.com/photo-1603336540413-009bd9dc5133?auto=format&fit=crop&w=900&q=80",
+  p1778448532096: "https://images.unsplash.com/photo-1598901986949-f593ff2a31a6?auto=format&fit=crop&w=900&q=80",
+  p1778448532248: "https://images.unsplash.com/photo-1686178827149-6d55c72d81df?auto=format&fit=crop&w=900&q=80",
+  p1778448532366: "https://images.unsplash.com/photo-1635930919419-f935f8902b0f?auto=format&fit=crop&w=900&q=80",
+  p1778448532679: "https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?auto=format&fit=crop&w=900&q=80",
+  p1778448532827: "https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=900&q=80",
+  p1778448532967: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80",
+  p1778448534395: "https://images.unsplash.com/photo-1546608235-3310a2494cdf?auto=format&fit=crop&w=900&q=80",
+  p1778448534883: "https://images.unsplash.com/photo-1612372606404-0ab33e7187ee?auto=format&fit=crop&w=900&q=80",
+  p1778448535323: "https://images.unsplash.com/photo-1634474588707-de99f09285c0?auto=format&fit=crop&w=900&q=80"
 };
 
 const DEFAULT_STATE = {
@@ -655,8 +668,16 @@ function mergeState(base, remote) {
 function withGiftImages(gifts) {
   return (gifts || []).map((gift) => ({
     ...gift,
-    image: gift.image || GIFT_IMAGE_URLS[gift.id] || ""
+    image: resolveGiftImage(gift)
   }));
+}
+
+function resolveGiftImage(gift) {
+  const defaultImage = GIFT_IMAGE_URLS[gift.id] || "";
+  const currentImage = String(gift.image || "").trim();
+  if (!defaultImage) return currentImage;
+  if (!currentImage || currentImage === LEGACY_GIFT_IMAGE_URLS[gift.id]) return defaultImage;
+  return gift.image;
 }
 
 function mergeObject(baseValue, incomingValue) {

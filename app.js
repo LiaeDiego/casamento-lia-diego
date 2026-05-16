@@ -545,9 +545,9 @@ function renderGifts() {
 }
 
 function scrollToToggleButton(button, expanding) {
-  if (!button) return;
+  if (!button || expanding) return;
   requestAnimationFrame(() => {
-    button.scrollIntoView({ behavior: "smooth", block: expanding ? "end" : "start" });
+    button.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 }
 

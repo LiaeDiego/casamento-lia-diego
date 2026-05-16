@@ -544,25 +544,21 @@ function renderGifts() {
   }
 }
 
-function preserveScrollPosition(referenceEl, callback) {
-  if (!referenceEl) { callback(); return; }
-  const before = referenceEl.getBoundingClientRect().top;
-  callback();
-  const after = referenceEl.getBoundingClientRect().top;
-  const delta = after - before;
-  if (Math.abs(delta) > 0.5) {
-    window.scrollTo(window.scrollX, window.scrollY + delta);
-  }
+function scrollToToggleButton(button, expanding) {
+  if (!button) return;
+  requestAnimationFrame(() => {
+    button.scrollIntoView({ behavior: "smooth", block: expanding ? "end" : "start" });
+  });
 }
 
 function bindGiftList() {
   const button = document.querySelector("[data-show-more-gifts]");
   if (!button) return;
   button.addEventListener("click", () => {
-    preserveScrollPosition(button, () => {
-      showAllGifts = !showAllGifts;
-      renderGifts();
-    });
+    const willExpand = !showAllGifts;
+    showAllGifts = willExpand;
+    renderGifts();
+    scrollToToggleButton(button, willExpand);
   });
 }
 
@@ -662,10 +658,10 @@ function bindGalleryList() {
   const button = document.querySelector("[data-show-more-gallery]");
   if (!button) return;
   button.addEventListener("click", () => {
-    preserveScrollPosition(button, () => {
-      showAllGallery = !showAllGallery;
-      renderGallery();
-    });
+    const willExpand = !showAllGallery;
+    showAllGallery = willExpand;
+    renderGallery();
+    scrollToToggleButton(button, willExpand);
   });
 }
 
@@ -693,10 +689,10 @@ function bindFaqList() {
   const button = document.querySelector("[data-show-more-faq]");
   if (!button) return;
   button.addEventListener("click", () => {
-    preserveScrollPosition(button, () => {
-      showAllFaq = !showAllFaq;
-      renderFaq();
-    });
+    const willExpand = !showAllFaq;
+    showAllFaq = willExpand;
+    renderFaq();
+    scrollToToggleButton(button, willExpand);
   });
 }
 
@@ -727,10 +723,10 @@ function bindLodgingList() {
   const button = document.querySelector("[data-show-more-lodging]");
   if (!button) return;
   button.addEventListener("click", () => {
-    preserveScrollPosition(button, () => {
-      showAllLodging = !showAllLodging;
-      renderLodging();
-    });
+    const willExpand = !showAllLodging;
+    showAllLodging = willExpand;
+    renderLodging();
+    scrollToToggleButton(button, willExpand);
   });
 }
 

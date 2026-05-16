@@ -248,10 +248,17 @@ function renderAll() {
 function bindFields() {
   document.querySelectorAll("[data-field]").forEach((field) => {
     const value = getPath(state, field.dataset.field);
-    field.value = value == null ? "" : value;
+    if (field.type === "checkbox") {
+      field.checked = Boolean(value);
+    } else {
+      field.value = value == null ? "" : value;
+    }
     field.oninput = () => {
-      const shouldBeNumber = ["number", "range"].includes(field.type);
-      setPath(state, field.dataset.field, shouldBeNumber ? Number(field.value || 0) : field.value);
+      let next;
+      if (field.type === "checkbox") next = field.checked;
+      else if (["number", "range"].includes(field.type)) next = Number(field.value || 0);
+      else next = field.value;
+      setPath(state, field.dataset.field, next);
     };
     field.onchange = field.oninput;
   });

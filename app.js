@@ -67,7 +67,9 @@ Depois daquela noite, vieram novas (e melhores) conversas, novos encontros e jun
 A partir daí, a história foi acontecendo naturalmente. Os dois com rodinhas nos pés viajaram vários quilômetros, tiveram momentos em família, vários dates de cafés da manhã, o pedido de namoro em Holambra, a fase do namoro à distância, as conquistas profissionais, a formatura e muitas memórias construídas juntos.
 
 Hoje, celebramos tudo o que vivemos até aqui e damos o próximo passo da nossa história: o começo da nossa família.</p>`,
-    giftsIntro: "Não há necessidade de presentes em caixas – sua presença é realmente o melhor presente que poderíamos pedir. Mas se você desejar nos presentear com algo, criamos uma lista com alguns itens pra nos auxiliar nessa nova jornada."
+    giftsIntro: "Não há necessidade de presentes em caixas – sua presença é realmente o melhor presente que poderíamos pedir. Mas se você desejar nos presentear com algo, criamos uma lista com alguns itens pra nos auxiliar nessa nova jornada.",
+    musicUrl: "",
+    musicAutoplay: false
   },
   theme: {
     burgundy: "#951c31",
@@ -186,11 +188,18 @@ Hoje, celebramos tudo o que vivemos até aqui e damos o próximo passo da nossa 
 
 const LOCAL_KEY = "casamento_lia_diego_state_v1";
 const INITIAL_VISIBLE_GIFTS = 8;
+const INITIAL_VISIBLE_GALLERY = 6;
+const INITIAL_VISIBLE_FAQ = 3;
+const INITIAL_VISIBLE_LODGING = 2;
 let state = clone(DEFAULT_STATE);
 let countdownTimer = null;
 let selectedGift = null;
 let selectedGiftMethod = null;
 let showAllGifts = false;
+let showAllGallery = false;
+let showAllFaq = false;
+let showAllLodging = false;
+let musicAutoplayArmed = false;
 
 const config = window.WEDDING_SITE_CONFIG || {};
 const apiUrl = (config.apiUrl || "").trim();
@@ -204,6 +213,10 @@ async function init() {
   bindMessages();
   bindGiftModal();
   bindGiftList();
+  bindGalleryList();
+  bindFaqList();
+  bindLodgingList();
+  bindMusicToggle();
   try {
     state = await loadState();
     applyState();
@@ -328,6 +341,7 @@ function applyState() {
   renderFaq();
   renderLodging();
   renderMessages();
+  applyMusic();
 }
 
 function applyTheme() {
@@ -530,12 +544,25 @@ function renderGifts() {
   }
 }
 
+function preserveScrollPosition(referenceEl, callback) {
+  if (!referenceEl) { callback(); return; }
+  const before = referenceEl.getBoundingClientRect().top;
+  callback();
+  const after = referenceEl.getBoundingClientRect().top;
+  const delta = after - before;
+  if (Math.abs(delta) > 0.5) {
+    window.scrollTo(window.scrollX, window.scrollY + delta);
+  }
+}
+
 function bindGiftList() {
   const button = document.querySelector("[data-show-more-gifts]");
   if (!button) return;
   button.addEventListener("click", () => {
-    showAllGifts = !showAllGifts;
-    renderGifts();
+    preserveScrollPosition(button, () => {
+      showAllGifts = !showAllGifts;
+      renderGifts();
+    });
   });
 }
 
@@ -613,27 +640,73 @@ function closeGiftModal() {
 
 function renderGallery() {
   const container = document.querySelector("[data-gallery]");
-  container.innerHTML = (state.gallery || []).map((item) => `
+  const moreWrap = document.querySelector("[data-gallery-more]");
+  const moreButton = document.querySelector("[data-show-more-gallery]");
+  const items = state.gallery || [];
+  const visible = showAllGallery ? items : items.slice(0, INITIAL_VISIBLE_GALLERY);
+  container.innerHTML = visible.map((item) => `
     <figure class="stamp">
       <img src="${escapeAttr(item.image || "assets/casal.jpg")}" alt="${escapeAttr(item.label || "Foto do casal")}">
       <span>${escapeHtml(item.label || "")}</span>
     </figure>
   `).join("");
+  const expandable = items.length > INITIAL_VISIBLE_GALLERY;
+  if (moreWrap) moreWrap.hidden = !expandable;
+  if (moreButton) {
+    moreButton.textContent = showAllGallery ? "Mostrar menos fotos" : "Mostrar mais fotos";
+    moreButton.setAttribute("aria-expanded", String(showAllGallery));
+  }
+}
+
+function bindGalleryList() {
+  const button = document.querySelector("[data-show-more-gallery]");
+  if (!button) return;
+  button.addEventListener("click", () => {
+    preserveScrollPosition(button, () => {
+      showAllGallery = !showAllGallery;
+      renderGallery();
+    });
+  });
 }
 
 function renderFaq() {
   const container = document.querySelector("[data-faq]");
-  container.innerHTML = (state.faq || []).map((item) => `
+  const moreWrap = document.querySelector("[data-faq-more]");
+  const moreButton = document.querySelector("[data-show-more-faq]");
+  const items = state.faq || [];
+  const visible = showAllFaq ? items : items.slice(0, INITIAL_VISIBLE_FAQ);
+  container.innerHTML = visible.map((item) => `
     <article class="faq-item">
       <h3>${escapeHtml(item.q)}</h3>
       <p>${escapeHtml(item.a)}</p>
     </article>
   `).join("");
+  const expandable = items.length > INITIAL_VISIBLE_FAQ;
+  if (moreWrap) moreWrap.hidden = !expandable;
+  if (moreButton) {
+    moreButton.textContent = showAllFaq ? "Mostrar menos perguntas" : "Mostrar mais perguntas";
+    moreButton.setAttribute("aria-expanded", String(showAllFaq));
+  }
+}
+
+function bindFaqList() {
+  const button = document.querySelector("[data-show-more-faq]");
+  if (!button) return;
+  button.addEventListener("click", () => {
+    preserveScrollPosition(button, () => {
+      showAllFaq = !showAllFaq;
+      renderFaq();
+    });
+  });
 }
 
 function renderLodging() {
   const container = document.querySelector("[data-lodging]");
-  container.innerHTML = (state.lodging || []).map((item) => `
+  const moreWrap = document.querySelector("[data-lodging-more]");
+  const moreButton = document.querySelector("[data-show-more-lodging]");
+  const items = state.lodging || [];
+  const visible = showAllLodging ? items : items.slice(0, INITIAL_VISIBLE_LODGING);
+  container.innerHTML = visible.map((item) => `
     <article class="lodging-card">
       <p class="eyebrow">${escapeHtml(item.tag || "")}</p>
       <h3>${escapeHtml(item.name || "")}</h3>
@@ -642,6 +715,23 @@ function renderLodging() {
       ${item.code ? `<p class="code">código: ${escapeHtml(item.code)}</p>` : ""}
     </article>
   `).join("");
+  const expandable = items.length > INITIAL_VISIBLE_LODGING;
+  if (moreWrap) moreWrap.hidden = !expandable;
+  if (moreButton) {
+    moreButton.textContent = showAllLodging ? "Mostrar menos opções" : "Mostrar mais opções";
+    moreButton.setAttribute("aria-expanded", String(showAllLodging));
+  }
+}
+
+function bindLodgingList() {
+  const button = document.querySelector("[data-show-more-lodging]");
+  if (!button) return;
+  button.addEventListener("click", () => {
+    preserveScrollPosition(button, () => {
+      showAllLodging = !showAllLodging;
+      renderLodging();
+    });
+  });
 }
 
 function renderMessages() {
@@ -655,17 +745,22 @@ function renderMessages() {
   `).join("");
 }
 
+function setRsvpStage(stage) {
+  const intro = document.querySelector("[data-rsvp-intro]");
+  const form = document.getElementById("rsvpForm");
+  const success = document.querySelector("[data-rsvp-success]");
+  const closeBtn = document.querySelector("[data-close-rsvp]");
+  if (intro) intro.hidden = stage !== "intro";
+  if (form) form.hidden = stage !== "form";
+  if (success) success.hidden = stage !== "success";
+  if (closeBtn) closeBtn.hidden = stage === "intro";
+}
+
 function bindRsvp() {
-  document.querySelector("[data-open-rsvp]").addEventListener("click", () => {
-    document.querySelector("[data-rsvp-intro]").hidden = true;
-    document.getElementById("rsvpForm").hidden = false;
-  });
+  document.querySelector("[data-open-rsvp]").addEventListener("click", () => setRsvpStage("form"));
+  document.querySelector("[data-close-rsvp]").addEventListener("click", () => setRsvpStage("intro"));
   document.querySelector("[data-add-guest]").addEventListener("click", () => addGuestRow());
-  document.querySelector("[data-new-rsvp]").addEventListener("click", () => {
-    document.querySelector("[data-rsvp-intro]").hidden = false;
-    document.getElementById("rsvpForm").hidden = true;
-    document.querySelector("[data-rsvp-success]").hidden = true;
-  });
+  document.querySelector("[data-new-rsvp]").addEventListener("click", () => setRsvpStage("intro"));
   document.getElementById("rsvpForm").addEventListener("submit", async (event) => {
     event.preventDefault();
     const payload = {
@@ -700,11 +795,9 @@ function bindRsvp() {
       }
       document.getElementById("rsvpForm").reset();
       document.querySelector("[data-guest-list]").innerHTML = "";
-      document.getElementById("rsvpForm").hidden = true;
-      document.querySelector("[data-rsvp-intro]").hidden = true;
       document.querySelector("[data-rsvp-success-text]").textContent =
         payload.attending === "sim" ? "Que alegria saber que você estará conosco." : "Obrigado por avisar. Sentiremos sua falta.";
-      document.querySelector("[data-rsvp-success]").hidden = false;
+      setRsvpStage("success");
       toast("Resposta registrada.");
     } catch (error) {
       console.error(error);
@@ -754,6 +847,73 @@ function bindNavigation() {
   document.querySelectorAll(".menu-links a").forEach((link) => {
     link.addEventListener("click", () => document.body.classList.remove("menu-open"));
   });
+}
+
+function applyMusic() {
+  const player = document.querySelector("[data-music-player]");
+  const button = document.querySelector("[data-music-toggle]");
+  if (!player || !button) return;
+  const url = String(state.site && state.site.musicUrl || "").trim();
+  const isValidUrl = /^https?:\/\//i.test(url) || /^assets\//i.test(url) || /^\.?\//.test(url);
+  if (!url || !isValidUrl) {
+    button.hidden = true;
+    setMusicState(button, false);
+    if (!player.paused) player.pause();
+    player.removeAttribute("src");
+    return;
+  }
+  if (player.getAttribute("src") !== url) {
+    player.src = url;
+    setMusicState(button, false);
+  }
+  button.hidden = false;
+  if (state.site.musicAutoplay && !musicAutoplayArmed) {
+    musicAutoplayArmed = true;
+    armMusicAutoplay(player, button);
+  }
+}
+
+function armMusicAutoplay(player, button) {
+  const start = () => {
+    document.removeEventListener("click", start, true);
+    document.removeEventListener("scroll", start, true);
+    document.removeEventListener("keydown", start, true);
+    document.removeEventListener("touchstart", start, true);
+    if (!state.site.musicAutoplay) return;
+    player.play().then(() => setMusicState(button, true)).catch(() => {});
+  };
+  document.addEventListener("click", start, true);
+  document.addEventListener("scroll", start, { capture: true, passive: true });
+  document.addEventListener("keydown", start, true);
+  document.addEventListener("touchstart", start, { capture: true, passive: true });
+}
+
+function setMusicState(button, playing) {
+  if (!button) return;
+  button.classList.toggle("is-playing", playing);
+  button.setAttribute("aria-pressed", String(playing));
+  const label = button.querySelector(".music-label");
+  if (label) label.textContent = playing ? "Pausar nossa música" : "Tocar nossa música";
+}
+
+function bindMusicToggle() {
+  const player = document.querySelector("[data-music-player]");
+  const button = document.querySelector("[data-music-toggle]");
+  if (!player || !button) return;
+  button.addEventListener("click", () => {
+    if (player.paused) {
+      player.play().then(() => setMusicState(button, true)).catch((error) => {
+        console.error(error);
+        toast("Não foi possível tocar a música.", "error");
+      });
+    } else {
+      player.pause();
+      setMusicState(button, false);
+    }
+  });
+  player.addEventListener("ended", () => setMusicState(button, false));
+  player.addEventListener("pause", () => setMusicState(button, false));
+  player.addEventListener("play", () => setMusicState(button, true));
 }
 
 function formatCurrency(value) {

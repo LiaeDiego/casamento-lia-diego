@@ -11,7 +11,13 @@
       "PowerShell(gh pr list --repo diego9739/Patrobol --state all --limit 50 --json number,title,state,headRefName,baseRefName,createdAt,mergedAt,labels | Out-String)",
       "PowerShell(Get-ChildItem *)",
       "PowerShell($repo = \"C:\\\\Users\\\\diego\\\\OneDrive\\\\Documentos\\\\Trabalho\\\\Meu negócio\\\\Projetos\\\\Patrobol\\\\Patrobol\"; git -C $repo fetch --all --prune 2>&1; \"---\"; git -C $repo status -uno; \"---\"; git -C $repo log --oneline origin/main -10)",
-      "PowerShell($repo = \"C:\\\\Users\\\\diego\\\\OneDrive\\\\Documentos\\\\Trabalho\\\\Meu negócio\\\\Projetos\\\\Patrobol\\\\Patrobol\"; git -C $repo pull --ff-only; \"---STATUS---\"; git -C $repo status -uno; \"---LOG---\"; git -C $repo log --oneline -5)"
+      "PowerShell($repo = \"C:\\\\Users\\\\diego\\\\OneDrive\\\\Documentos\\\\Trabalho\\\\Meu negócio\\\\Projetos\\\\Patrobol\\\\Patrobol\"; git -C $repo pull --ff-only; \"---STATUS---\"; git -C $repo status -uno; \"---LOG---\"; git -C $repo log --oneline -5)",
+      "Bash(Get-ChildItem -Recurse -Force)",
+      "Bash(Select-Object -Property FullName, PSIsContainer)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Format-Table -AutoSize)",
+      "Bash(node --check app.js)",
+      "Bash(node --check admin.js)"
     ]
   }
 }

@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="admin.css">
   <script src="site-config.js"></script>
-  <script src="admin.js?v=presentes-20260514" defer></script>
+  <script src="admin.js?v=musica-checkbox-20260515" defer></script>
 </head>
 <body>
   <header class="admin-topbar">
@@ -65,6 +65,8 @@
           <label><span>Cadeiras do hero URL</span><input data-field="site.heroChairsImage"></label>
           <label><span>Cadeiras do rodapé URL</span><input data-field="site.footerChairsImage"></label>
           <label><span>Texto da lista de presentes</span><input data-field="site.giftsIntro"></label>
+          <label><span>URL da música de fundo</span><input data-field="site.musicUrl" placeholder="https://..."></label>
+          <label class="checkbox"><input type="checkbox" data-field="site.musicAutoplay"><span>Tocar música automaticamente</span></label>
         </div>
         <label class="wide"><span>História dos noivos (HTML simples permitido)</span><textarea rows="9" data-field="site.storyHtml"></textarea></label>
         <div class="grid four colors">

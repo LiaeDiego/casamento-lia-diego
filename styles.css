@@ -296,6 +296,38 @@ label span,
   color: var(--burgundy);
   font-size: 1.05rem;
 }
+.music-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 10px 22px;
+  background: transparent;
+  border: 1px solid var(--terracotta);
+  color: var(--burgundy);
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.music-control:hover {
+  background: var(--terracotta);
+  color: var(--cream);
+}
+.music-control .music-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+.music-control.is-playing .music-icon {
+  animation: musicPulse 1.4s ease-in-out infinite;
+}
+@keyframes musicPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+[data-music-player] { display: none; }
 
 .save-date {
   min-height: var(--save-date-height);
@@ -413,10 +445,21 @@ label span,
   margin-top: 18px;
 }
 .gift-actions .btn { flex: 1 1 110px; }
-.gifts-more {
+.gifts-more,
+.gallery-more,
+.faq-more,
+.lodging-more {
   display: flex;
   justify-content: center;
   margin-top: 30px;
+}
+.lodging-more .btn.ghost {
+  color: var(--cream);
+  border-color: var(--cream);
+}
+.lodging-more .btn.ghost:hover {
+  background: var(--cream);
+  color: var(--lodging-background, var(--terracotta));
 }
 
 .gallery {
@@ -464,6 +507,7 @@ label span,
   background-size: 58px 58px, 58px 58px, 100% 100%, 100% 100%;
 }
 .rsvp-card {
+  position: relative;
   max-width: 680px;
   margin: 0 auto;
   padding: clamp(28px, 6vw, 58px);
@@ -471,6 +515,32 @@ label span,
   outline: 12px solid var(--terracotta);
   outline-offset: -1px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.rsvp-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  color: var(--burgundy);
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.rsvp-close:hover {
+  background: rgba(149, 28, 49, 0.1);
+  transform: scale(1.08);
+}
+.rsvp-close:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
 }
 .rsvp-intro {
   text-align: left;

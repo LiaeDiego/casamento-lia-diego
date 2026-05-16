@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=estado-presentes-20260515">
+  <link rel="stylesheet" href="styles.css?v=blocos-toggle-musica-20260515">
   <style>
     body.site-loading {
       overflow: hidden;
@@ -20,7 +20,7 @@
     }
   </style>
   <script src="site-config.js"></script>
-  <script src="app.js?v=presentes-toggle-20260515" defer></script>
+  <script src="app.js?v=blocos-toggle-musica-20260515" defer></script>
 </head>
 <body class="site-loading">
   <nav class="menu" aria-label="Navegação principal">
@@ -63,6 +63,11 @@
         <div data-html="site.storyHtml">
           <p>Os noivos editarão este texto depois da publicação.</p>
         </div>
+        <audio data-music-player preload="none" loop></audio>
+        <button class="music-control" type="button" data-music-toggle aria-pressed="false" hidden>
+          <span class="music-icon" aria-hidden="true">&#9835;</span>
+          <span class="music-label">Tocar nossa música</span>
+        </button>
       </div>
     </section>
 
@@ -86,10 +91,14 @@
       <p class="eyebrow">nossas memórias</p>
       <h2 class="script-heading">Galeria</h2>
       <div class="stamp-grid" data-gallery></div>
+      <div class="gallery-more" data-gallery-more hidden>
+        <button class="btn ghost" type="button" data-show-more-gallery aria-expanded="false">Mostrar mais fotos</button>
+      </div>
     </section>
 
     <section id="rsvp" class="rsvp site-section" data-section="rsvp">
       <div class="rsvp-card">
+        <button class="rsvp-close" type="button" data-close-rsvp aria-label="Fechar formulário" hidden>&times;</button>
         <div class="rsvp-intro" data-rsvp-intro>
           <p class="eyebrow">CONFIRMAÇÃO DE PRESENÇA</p>
           <p class="rsvp-invite">Por favor nos avise se você poderá nos<br>acompanhar nesse dia tão especial<br>clicando no botão abaixo</p>
@@ -129,11 +138,17 @@
     <section id="faq" class="faq site-section" data-section="faq">
       <h2 class="script-heading">Perguntas Frequentes</h2>
       <div class="faq-grid" data-faq></div>
+      <div class="faq-more" data-faq-more hidden>
+        <button class="btn ghost" type="button" data-show-more-faq aria-expanded="false">Mostrar mais perguntas</button>
+      </div>
     </section>
 
     <section id="acomodacoes" class="lodging site-section" data-section="lodging">
       <h2 class="script-heading">Acomodações</h2>
       <div class="lodging-grid" data-lodging></div>
+      <div class="lodging-more" data-lodging-more hidden>
+        <button class="btn ghost" type="button" data-show-more-lodging aria-expanded="false">Mostrar mais opções</button>
+      </div>
     </section>
 
     <section id="recados" class="messages site-section" data-section="messages">

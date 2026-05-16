@@ -195,6 +195,23 @@ code { font-family: "JetBrains Mono", Consolas, monospace; }
 }
 .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+label.checkbox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+label.checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex: 0 0 auto;
+}
+label.checkbox span {
+  margin: 0;
+  color: var(--ink, #2d1b0f);
+  font-size: 0.95rem;
+}
 .wide { margin-top: 18px; }
 .colors { margin-top: 18px; }
 .colors input {

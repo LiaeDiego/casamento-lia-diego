@@ -551,6 +551,9 @@ label span,
   align-content: center;
   gap: 24px;
 }
+.rsvp-intro .eyebrow {
+  font-size: 0.86rem;
+}
 .rsvp-invite {
   margin: 0;
   max-width: 470px;

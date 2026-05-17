@@ -455,20 +455,9 @@ label span,
   scroll-margin-top: 96px;
   scroll-margin-bottom: 32px;
 }
-.gifts-more .btn.ghost,
-.gallery-more .btn.ghost,
-.faq-more .btn.ghost {
-  background: rgba(149, 28, 49, 0.07);
-}
-.gifts-more .btn.ghost:hover,
-.gallery-more .btn.ghost:hover,
-.faq-more .btn.ghost:hover {
-  background: rgba(149, 28, 49, 0.14);
-}
 .lodging-more .btn.ghost {
   color: var(--cream);
   border-color: var(--cream);
-  background: rgba(255, 244, 223, 0.12);
 }
 .lodging-more .btn.ghost:hover {
   background: var(--cream);

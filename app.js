@@ -503,7 +503,9 @@ function renderGifts() {
   const container = document.querySelector("[data-gifts]");
   const moreWrap = document.querySelector("[data-gifts-more]");
   const moreButton = document.querySelector("[data-show-more-gifts]");
-  const gifts = state.gifts || [];
+  const gifts = [...(state.gifts || [])].sort(
+    (a, b) => Number(a.valor || 0) - Number(b.valor || 0)
+  );
   if (!gifts.length) {
     container.innerHTML = "<p>Nenhum presente cadastrado ainda.</p>";
     if (moreWrap) moreWrap.hidden = true;

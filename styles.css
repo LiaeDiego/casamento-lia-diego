@@ -409,13 +409,15 @@ label span,
   padding: 24px;
 }
 .gift-card.unavailable { opacity: 0.52; }
-.gift-photo {
+.gift-photo,
+.lodging-photo {
   margin: -24px -24px 18px;
   overflow: hidden;
   background: var(--cream-deep);
   border-bottom: 1px solid rgba(92, 63, 25, 0.14);
 }
-.gift-photo img {
+.gift-photo img,
+.lodging-photo img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
@@ -637,13 +639,8 @@ select:focus { border-color: var(--terracotta); }
   text-align: center;
 }
 .lodging-card {
-  background: var(--card-background);
+  background: var(--cream);
   color: var(--ink);
-}
-.lodging-card .code {
-  font-family: "JetBrains Mono", monospace;
-  color: var(--terracotta);
-  font-size: 0.82rem;
 }
 
 .messages { background: var(--messages-background); }
@@ -798,4 +795,5 @@ select:focus { border-color: var(--terracotta); }
   .story { grid-template-columns: 1fr; padding-top: 70px; }
   .story-photo { max-width: 420px; margin: 0 auto; }
   .message-form { grid-template-columns: 1fr; }
+  .lodging .script-heading { font-size: min(4.2rem, 16vw); }
 }

@@ -269,7 +269,7 @@ function renderSections() {
   tbody.innerHTML = state.sections.map((section, index) => `
     <tr>
       <td><input type="checkbox" data-section-visible="${index}" ${section.visible !== false ? "checked" : ""}></td>
-      <td>${escapeHtml(section.label)}</td>
+      <td>${escapeHtml(section.id === "lodging" ? "Recomendações" : section.label)}</td>
       <td><input type="number" min="1" step="1" value="${Number(section.order || index + 1)}" data-section-order="${index}"></td>
     </tr>
   `).join("");
@@ -332,16 +332,17 @@ function renderLodgingEditor() {
   state.lodging = Array.isArray(state.lodging) ? state.lodging : [];
   container.innerHTML = state.lodging.map((item, index) => `
     <article class="list-editor" data-lodging-index="${index}">
-      <h3>Acomodação ${index + 1}</h3>
+      <h3>Recomendação ${index + 1}</h3>
       <div class="list-editor-grid">
         <label><span>Nome</span><input data-lodging-field="name" value="${escapeAttr(item.name || "")}"></label>
         <label><span>Tag</span><input data-lodging-field="tag" value="${escapeAttr(item.tag || "")}"></label>
         <label><span>Distância</span><input data-lodging-field="distance" value="${escapeAttr(item.distance || "")}"></label>
         <label><span>Valor</span><input data-lodging-field="price" value="${escapeAttr(item.price || "")}"></label>
-        <label class="full"><span>Código/observação</span><input data-lodging-field="code" value="${escapeAttr(item.code || "")}"></label>
+        <label class="full"><span>Foto URL</span><input data-lodging-field="image" placeholder="https://..." value="${escapeAttr(item.image || "")}"></label>
+        <label class="full"><span>Observação</span><input data-lodging-field="code" value="${escapeAttr(item.code || "")}"></label>
       </div>
       <div class="actions-row">
-        <button type="button" class="danger" data-remove-lodging="${index}">Excluir acomodação</button>
+        <button type="button" class="danger" data-remove-lodging="${index}">Excluir recomendação</button>
       </div>
     </article>
   `).join("");
@@ -378,7 +379,7 @@ function addFaqItem() {
 
 function addLodgingItem() {
   state.lodging = Array.isArray(state.lodging) ? state.lodging : [];
-  state.lodging.push({ name: "Nova acomodação", tag: "", distance: "", price: "", code: "" });
+  state.lodging.push({ name: "Nova recomendação", tag: "", distance: "", price: "", image: "", code: "" });
   renderLodgingEditor();
 }
 

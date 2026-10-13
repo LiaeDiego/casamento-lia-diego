@@ -704,15 +704,26 @@ function renderLodging() {
   const moreButton = document.querySelector("[data-show-more-lodging]");
   const items = state.lodging || [];
   const visible = showAllLodging ? items : items.slice(0, INITIAL_VISIBLE_LODGING);
-  container.innerHTML = visible.map((item) => `
+  container.innerHTML = visible.map((item) => {
+    const image = String(item.image || "").trim();
+    const imageAlt = item.name ? `Foto de ${item.name}` : "Foto da recomendação";
+    return `
     <article class="lodging-card">
+      ${image ? `<figure class="lodging-photo"><img src="${escapeAttr(image)}" alt="${escapeAttr(imageAlt)}" loading="lazy"></figure>` : ""}
       <p class="eyebrow">${escapeHtml(item.tag || "")}</p>
       <h3>${escapeHtml(item.name || "")}</h3>
       <p>${escapeHtml(item.distance || "")}</p>
       <p>${escapeHtml(item.price || "")}</p>
-      ${item.code ? `<p class="code">código: ${escapeHtml(item.code)}</p>` : ""}
+      ${item.code ? `<p>${escapeHtml(item.code)}</p>` : ""}
     </article>
-  `).join("");
+  `;
+  }).join("");
+  container.querySelectorAll(".lodging-photo img").forEach((img) => {
+    img.addEventListener("error", () => {
+      const photo = img.closest(".lodging-photo");
+      if (photo) photo.hidden = true;
+    });
+  });
   const expandable = items.length > INITIAL_VISIBLE_LODGING;
   if (moreWrap) moreWrap.hidden = !expandable;
   if (moreButton) {

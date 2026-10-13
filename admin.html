@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="admin.css">
   <script src="site-config.js"></script>
-  <script src="admin.js?v=musica-checkbox-20260515" defer></script>
+  <script src="admin.js?v=recomendacoes-20261012" defer></script>
 </head>
 <body>
   <header class="admin-topbar">
@@ -124,7 +124,7 @@
             <label><span>Fundo presentes</span><input type="color" data-field="visual.blocks.giftsBackground"></label>
             <label><span>Fundo FAQ</span><input type="color" data-field="visual.blocks.faqBackground"></label>
             <label><span>Fundo galeria</span><input type="color" data-field="visual.blocks.galleryBackground"></label>
-            <label><span>Fundo acomodações</span><input type="color" data-field="visual.blocks.lodgingBackground"></label>
+            <label><span>Fundo recomendações</span><input type="color" data-field="visual.blocks.lodgingBackground"></label>
             <label><span>Fundo recados</span><input type="color" data-field="visual.blocks.messagesBackground"></label>
             <label><span>Fundo rodapé</span><input type="color" data-field="visual.blocks.footerBackground"></label>
             <label><span>Texto rodapé</span><input type="color" data-field="visual.blocks.footerText"></label>
@@ -139,12 +139,12 @@
             <label><span>Título presentes (rem)</span><input type="number" min="2" step="0.05" data-field="visual.titles.giftsTitleSize"></label>
             <label><span>Título FAQ (rem)</span><input type="number" min="2" step="0.05" data-field="visual.titles.faqTitleSize"></label>
             <label><span>Perguntas FAQ (rem)</span><input type="number" min="1" step="0.05" data-field="visual.titles.faqQuestionSize"></label>
-            <label><span>Título acomodações (rem)</span><input type="number" min="2" step="0.05" data-field="visual.titles.lodgingTitleSize"></label>
+            <label><span>Título recomendações (rem)</span><input type="number" min="2" step="0.05" data-field="visual.titles.lodgingTitleSize"></label>
             <label><span>Frase do rodapé (rem)</span><input type="number" min="1" step="0.05" data-field="visual.titles.footerTaglineSize"></label>
             <label><span>Presentes padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.giftsPaddingY"></label>
             <label><span>FAQ padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.faqPaddingY"></label>
             <label><span>Galeria padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.galleryPaddingY"></label>
-            <label><span>Acomodações padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.lodgingPaddingY"></label>
+            <label><span>Recomendações padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.lodgingPaddingY"></label>
             <label><span>Recados padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.messagesPaddingY"></label>
             <label><span>História padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.storyPaddingY"></label>
             <label><span>RSVP padding (px)</span><input type="number" min="24" step="1" data-field="visual.sections.rsvpPaddingY"></label>
@@ -182,7 +182,7 @@
 
       <section class="panel" data-tab="listas">
         <div class="panel-head">
-          <h2>FAQ, acomodações e galeria</h2>
+          <h2>FAQ, recomendações e galeria</h2>
           <p>Edite cada item por campos, sem precisar mexer em JSON.</p>
         </div>
         <div class="list-editor-section">
@@ -194,7 +194,7 @@
           <div data-faq-editor></div>
         </div>
         <div class="list-editor-section">
-          <div class="actions-row"><button type="button" data-add-lodging>+ Adicionar acomodação</button></div>
+          <div class="actions-row"><button type="button" data-add-lodging>+ Adicionar recomendação</button></div>
           <div data-lodging-editor></div>
         </div>
       </section>

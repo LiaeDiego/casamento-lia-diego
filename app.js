@@ -708,13 +708,15 @@ function renderLodging() {
     const image = String(item.image || "").trim();
     const imageAlt = item.name ? `Foto de ${item.name}` : "Foto da recomendação";
     return `
-    <article class="lodging-card">
+    <article class="lodging-card ${image ? "has-photo" : ""}">
       ${image ? `<figure class="lodging-photo"><img src="${escapeAttr(image)}" alt="${escapeAttr(imageAlt)}" loading="lazy"></figure>` : ""}
-      <p class="eyebrow">${escapeHtml(item.tag || "")}</p>
-      <h3>${escapeHtml(item.name || "")}</h3>
-      <p>${escapeHtml(item.distance || "")}</p>
-      <p>${escapeHtml(item.price || "")}</p>
-      ${item.code ? `<p>${escapeHtml(item.code)}</p>` : ""}
+      <div class="lodging-body">
+        <p class="eyebrow">${escapeHtml(item.tag || "")}</p>
+        <h3>${escapeHtml(item.name || "")}</h3>
+        <p>${escapeHtml(item.distance || "")}</p>
+        <p>${escapeHtml(item.price || "")}</p>
+        ${item.code ? `<p>${escapeHtml(item.code)}</p>` : ""}
+      </div>
     </article>
   `;
   }).join("");
@@ -722,6 +724,8 @@ function renderLodging() {
     img.addEventListener("error", () => {
       const photo = img.closest(".lodging-photo");
       if (photo) photo.hidden = true;
+      const card = img.closest(".lodging-card");
+      if (card) card.classList.remove("has-photo");
     });
   });
   const expandable = items.length > INITIAL_VISIBLE_LODGING;

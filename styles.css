@@ -409,15 +409,13 @@ label span,
   padding: 24px;
 }
 .gift-card.unavailable { opacity: 0.52; }
-.gift-photo,
-.lodging-photo {
+.gift-photo {
   margin: -24px -24px 18px;
   overflow: hidden;
   background: var(--cream-deep);
   border-bottom: 1px solid rgba(92, 63, 25, 0.14);
 }
-.gift-photo img,
-.lodging-photo img {
+.gift-photo img {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
@@ -642,6 +640,24 @@ select:focus { border-color: var(--terracotta); }
   background: var(--cream);
   color: var(--ink);
 }
+.lodging-card.has-photo {
+  display: grid;
+  grid-template-columns: clamp(84px, 30%, 160px) minmax(0, 1fr);
+  column-gap: 20px;
+  align-items: start;
+}
+.lodging-photo {
+  margin: 0;
+  overflow: hidden;
+  background: var(--cream-deep);
+  border: 1px solid var(--card-border-color);
+}
+.lodging-photo img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+.lodging-body > :first-child { margin-top: 0; }
 
 .messages { background: var(--messages-background); }
 .message-form {
